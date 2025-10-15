@@ -300,7 +300,7 @@ export default function ConfiguracoesPage() {
                                             <p className="text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
                                                 Instale o FinTogether no seu dispositivo para ter acesso rápido, funcionar offline e uma experiência mais fluida.
                                             </p>
-                                            
+
                                             {/* Benefícios */}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                                                 <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">

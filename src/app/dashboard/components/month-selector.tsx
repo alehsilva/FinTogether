@@ -31,7 +31,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
 
     const handleTouchMove = (e: React.TouchEvent) => {
         setTouchEnd(e.targetTouches[0].clientX)
-        
+
         // Indicar que está fazendo swipe
         if (touchStart) {
             const distance = Math.abs(touchStart - e.targetTouches[0].clientX)
@@ -71,7 +71,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                 }
             }
         }
-        
+
         // Reset das variáveis
         setTouchStart(0)
         setTouchEnd(0)
@@ -148,7 +148,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                 <div className={`bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 shadow-md border border-slate-200 dark:border-slate-700/50 overflow-hidden transition-all duration-300 ${isSwipping ? 'scale-[0.98] shadow-lg' : ''}`}>
                     {/* Gradiente sutil no fundo */}
                     <div className="absolute inset-0 bg-gradient-to-r from-slate-200/40 via-slate-100/20 to-slate-200/40 dark:from-slate-800/40 dark:via-slate-700/20 dark:to-slate-800/40 transition-colors duration-300"></div>
-                    
+
                     {/* Indicador de swipe */}
                     {isSwipping && (
                         <div className="absolute inset-0 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-2xl transition-opacity duration-200"></div>
