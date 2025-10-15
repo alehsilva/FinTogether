@@ -52,14 +52,10 @@ export function TransactionList({
         showDeleteModal,
         transactionToDelete,
         isMaximized,
-        showMaximizeTip,
         pendingDelete,
         showUndoToast,
         filteredTransactions,
         toggleMaximized,
-        handleCardTouchStart,
-        handleCardTouchMove,
-        handleCardTouchEnd,
         handleToggleStatus,
         handleTouchStart,
         handleTouchMove,
@@ -126,34 +122,11 @@ export function TransactionList({
         <>
             <Card
                 className={`flex-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border-slate-300 dark:border-slate-700/50 transition-all duration-300 ${isMaximized
-                    ? 'fixed inset-x-0 bottom-0 top-[280px] z-10 rounded-t-2xl rounded-b-none shadow-2xl md:relative md:rounded-lg md:max-h-none'
+                    ? 'rounded-lg shadow-lg'
                     : 'md:max-h-none max-h-[500px]'
                     }`}
             >
-                {isMaximized && (
-                    <>
-                        <div
-                            className="md:hidden flex justify-center pt-2 pb-1 cursor-grab active:cursor-grabbing select-none"
-                            onTouchStart={handleCardTouchStart}
-                            onTouchMove={handleCardTouchMove}
-                            onTouchEnd={handleCardTouchEnd}
-                        >
-                            <div className="w-12 h-1 bg-slate-400 dark:bg-slate-300 rounded-full transition-colors duration-300"></div>
-                        </div>
 
-                        {showMaximizeTip && (
-                            <div className="md:hidden absolute top-14 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-xs px-4 py-2 rounded-lg shadow-lg animate-in fade-in slide-in-from-top-2 duration-300">
-                                <div className="flex items-center gap-2">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                    </svg>
-                                    <span>Arraste para baixo para minimizar</span>
-                                </div>
-                                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 rotate-45"></div>
-                            </div>
-                        )}
-                    </>
-                )}
 
                 <div className="px-4 pb-3 pt-4 border-b border-slate-300/40 dark:border-slate-700/30 transition-colors duration-300">
                     <div className="flex items-center gap-2 mb-3">
@@ -163,11 +136,6 @@ export function TransactionList({
                         <span className="text-xs text-slate-500 dark:text-slate-500 hidden sm:inline transition-colors duration-300">
                             (clique para revelar ações)
                         </span>
-                        {isMaximized && (
-                            <span className="md:hidden text-[10px] text-slate-600 dark:text-slate-400 italic mr-2 transition-colors duration-300">
-                                arraste para baixo para minimizar
-                            </span>
-                        )}
                         <button
                             onClick={toggleMaximized}
                             className="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700/50 rounded-lg transition-colors cursor-pointer"
@@ -279,7 +247,7 @@ export function TransactionList({
                 <CardContent
                     data-scroll-container
                     className={`space-y-2 px-4 pb-4 pt-3 overflow-y-auto ${isMaximized
-                        ? 'h-[calc(100vh-340px)]'
+                        ? 'h-[calc(100vh-290px)]'
                         : 'max-h-[400px] md:max-h-[300px]'
                         }`}
                 >

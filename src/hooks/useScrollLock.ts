@@ -22,20 +22,16 @@ export function useScrollLock(isLocked: boolean, scrollToTop?: boolean) {
     if (typeof window === 'undefined') return
 
     if (isLocked) {
-      // Salvar posição atual do scroll (apenas se não for para scrollar para o topo)
-      if (!scrollToTop) {
-        scrollPositionRef.current = window.pageYOffset
+      if (scrollToTop) {
+        // Primeiro fazer scroll para o topo instantaneamente, depois aplicar lock
+        window.scrollTo({ top: 0, behavior: 'instant' })
+        scrollPositionRef.current = 0
       } else {
-        // Se for para scrollar para o topo, primeiro fazemos o scroll
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-        // Aguardar um pouco para o scroll completar antes de aplicar o lock
-        setTimeout(() => {
-          scrollPositionRef.current = 0
-          applyScrollLock()
-        }, 300)
-        return
+        // Salvar posição atual do scroll
+        scrollPositionRef.current = window.pageYOffset
       }
 
+      // Aplicar scroll lock imediatamente
       applyScrollLock()
     } else {
       restoreScroll()

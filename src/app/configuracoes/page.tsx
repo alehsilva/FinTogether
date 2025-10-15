@@ -371,10 +371,10 @@ export default function ConfiguracoesPage() {
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                                     </svg>
                                                 </div>
-                                                <div className="flex-1">
+                                                <div className="flex-1 min-w-0">
                                                     <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">Convite Recebido</h4>
-                                                    <p className="text-blue-800 dark:text-blue-400 leading-relaxed">
-                                                        <strong>{pending.partner_1_email}</strong> te convidou para formar um casal no FinTogether.
+                                                    <p className="text-blue-800 dark:text-blue-400 leading-relaxed break-words">
+                                                        <strong className="break-all">{pending.partner_1_email}</strong> te convidou para formar um casal no FinTogether.
                                                     </p>
                                                 </div>
                                             </div>
@@ -403,15 +403,15 @@ export default function ConfiguracoesPage() {
                                         // Estado: Casal ativo
                                         <div className="p-6 rounded-xl bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/50 border border-emerald-200 dark:border-emerald-800 shadow-sm">
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-4">
+                                                <div className="flex items-center gap-4 min-w-0 flex-1">
                                                     <div className="w-12 h-12 rounded-full bg-emerald-500 dark:bg-emerald-600 flex items-center justify-center">
                                                         <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                                                             <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
                                                         </svg>
                                                     </div>
-                                                    <div>
+                                                    <div className="min-w-0">
                                                         <h4 className="font-bold text-emerald-900 dark:text-emerald-300 text-lg">Pareamento Ativo</h4>
-                                                        <p className="text-emerald-700 dark:text-emerald-400 font-medium">Parceiro: {partnerEmailFromState}</p>
+                                                        <p className="text-emerald-700 dark:text-emerald-400 font-medium break-words break-all">Parceiro: {partnerEmailFromState}</p>
                                                     </div>
                                                 </div>
                                                 <Button
@@ -439,8 +439,8 @@ export default function ConfiguracoesPage() {
                                                 </div>
                                                 <div className="flex-1">
                                                     <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">Aguardando Resposta</h4>
-                                                    <p className="text-blue-800 dark:text-blue-400 leading-relaxed">
-                                                        Convite enviado para <strong>{partnerEmailFromState}</strong>.
+                                                    <p className="text-blue-800 dark:text-blue-400 leading-relaxed break-words">
+                                                        Convite enviado para <strong className="break-all">{partnerEmailFromState}</strong>.
                                                         {inviterAccepted ? ' Você já confirmou seu aceite. ' : ' Confirme seu aceite para agilizar a ativação. '}
                                                         {inviteeAccepted ? ' Parceiro(a) já aceitou.' : ' Aguardando aceite do(a) parceiro(a).'}
                                                     </p>
@@ -481,12 +481,12 @@ export default function ConfiguracoesPage() {
                                                         placeholder="exemplo@email.com"
                                                         value={partnerEmail}
                                                         onChange={(e) => setPartnerEmail(e.target.value)}
-                                                        className="flex-1 h-11"
+                                                        className="flex-1 h-10 pl-3 pr-3 py-2"
                                                     />
                                                     <Button
                                                         onClick={searchPartner}
                                                         disabled={buttonLoading || !partnerEmail.trim()}
-                                                        className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white px-6 shadow-sm cursor-pointer h-11"
+                                                        className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white px-6 shadow-sm cursor-pointer h-10"
                                                     >
                                                         {buttonLoading ? (
                                                             <div className="flex items-center gap-2">

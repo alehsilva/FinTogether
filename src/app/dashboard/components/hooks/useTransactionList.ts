@@ -33,9 +33,7 @@ export function useTransactionList({
     const [transactionToDelete, setTransactionToDelete] = useState<Transaction | null>(null)
     const [internalIsMaximized, setInternalIsMaximized] = useState(false)
     const isMaximized = externalIsMaximized !== undefined ? externalIsMaximized : internalIsMaximized
-    const [swipeStartY, setSwipeStartY] = useState(0)
-    const [swipeCurrentY, setSwipeCurrentY] = useState(0)
-    const [showMaximizeTip, setShowMaximizeTip] = useState(false)
+
     const [pendingDelete, setPendingDelete] = useState<{ id: string; option?: 'single' | 'all' } | null>(null)
     const [showUndoToast, setShowUndoToast] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
@@ -73,12 +71,6 @@ export function useTransactionList({
     const toggleMaximized = () => {
         const newValue = !isMaximized
 
-        if (newValue && !localStorage.getItem('fintogetherMaximizeTipShown')) {
-            setShowMaximizeTip(true)
-            localStorage.setItem('fintogetherMaximizeTipShown', 'true')
-            setTimeout(() => setShowMaximizeTip(false), 4000)
-        }
-
         if (onMaximizedChange) {
             onMaximizedChange(newValue)
         } else {
@@ -86,36 +78,7 @@ export function useTransactionList({
         }
     }
 
-    const handleCardTouchStart = (e: React.TouchEvent) => {
-        if (!isMaximized) return
-        const target = e.target as HTMLElement
-        const scrollContainer = target.closest('[data-scroll-container]')
 
-        if (scrollContainer && scrollContainer.scrollTop > 10) {
-            return
-        }
-
-        setSwipeStartY(e.touches[0].clientY)
-        setSwipeCurrentY(e.touches[0].clientY)
-    }
-
-    const handleCardTouchMove = (e: React.TouchEvent) => {
-        if (!isMaximized || swipeStartY === 0) return
-        setSwipeCurrentY(e.touches[0].clientY)
-    }
-
-    const handleCardTouchEnd = () => {
-        if (!isMaximized || swipeStartY === 0) return
-        const distance = swipeCurrentY - swipeStartY
-        const threshold = 100
-
-        if (distance > threshold) {
-            toggleMaximized()
-        }
-
-        setSwipeStartY(0)
-        setSwipeCurrentY(0)
-    }
 
     const handleToggleStatus = async (transactionId: string, currentStatus: string) => {
         if (loadingTransactions.has(transactionId)) return
@@ -294,14 +257,10 @@ export function useTransactionList({
         showDeleteModal,
         transactionToDelete,
         isMaximized,
-        showMaximizeTip,
         pendingDelete,
         showUndoToast,
         filteredTransactions,
         toggleMaximized,
-        handleCardTouchStart,
-        handleCardTouchMove,
-        handleCardTouchEnd,
         handleToggleStatus,
         handleTouchStart,
         handleTouchMove,

@@ -102,75 +102,134 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="relative flex flex-col lg:flex-row h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-300">
-            {/* Background decorativo sutil */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+        <>
+            {/* Layout Fullscreen Mobile quando lista maximizada */}
+            {isTransactionListMaximized && (
+                <div className="lg:hidden fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+                    {/* Month Selector fixo no topo */}
+                    <div className="flex-shrink-0">
+                        <MonthSelector
+                            selectedMonth={selectedMonth}
+                            selectedYear={selectedYear}
+                            selectedView={selectedView}
+                            onMonthChange={onMonthChange}
+                            onYearChange={onYearChange}
+                            summary={summary}
+                        />
+                    </div>
 
-            {/* Main Content - Dashboard com scroll */}
-            <div className={`flex-1 flex flex-col w-full overflow-hidden transition-all duration-500 relative ${editingTransaction ? 'lg:brightness-50 lg:contrast-75' : ''
-                }`}>
-                {/* Overlay para desktop quando editando */}
-                {editingTransaction && (
-                    <div
-                        data-overlay="editing"
-                        className="hidden lg:block absolute inset-0 bg-black/20 z-10 transition-opacity duration-500 cursor-pointer"
-                        onClick={() => setEditingTransaction(null)}
-                        title="Clique para cancelar edição"
-                    />
-                )}
-                {/* Dashboard Content with scroll */}
-                <div className="h-full overflow-y-auto overflow-x-hidden">{/* Month Navigation */}
-                    <MonthSelector
-                        selectedMonth={selectedMonth}
-                        selectedYear={selectedYear}
-                        selectedView={selectedView}
-                        onMonthChange={onMonthChange}
-                        onYearChange={onYearChange}
-                        summary={summary}
-                    />
+                    {/* Balance Card compacto */}
+                    <div className="flex-shrink-0">
+                        <BalanceCard
+                            selectedView={selectedView}
+                            selectedMonth={selectedMonth}
+                            onViewChange={onViewChange}
+                            summary={summary}
+                            totalSummary={totalSummary}
+                            loading={loading}
+                            hasCouple={hasCouple}
+                            isCompact={true}
+                        />
+                    </div>
 
-                    {/* Balance Card */}
-                    <BalanceCard
-                        selectedView={selectedView}
-                        selectedMonth={selectedMonth}
-                        onViewChange={onViewChange}
-                        summary={summary}
-                        totalSummary={totalSummary}
-                        loading={loading}
-                        hasCouple={hasCouple}
-                        isCompact={isTransactionListMaximized}
-                    />
+                    {/* Lista de transações expansível */}
+                    <div className="flex-1 px-4 pb-4 overflow-hidden">
+                        <TransactionList
+                            selectedView={selectedView}
+                            transactions={transactions}
+                            loading={loading}
+                            updateTransactionStatus={onUpdateTransaction}
+                            onEditTransaction={handleEditTransaction}
+                            onDeleteTransaction={onDeleteTransaction}
+                            onTransactionUpdate={onRefresh}
+                            currentUserId={user?.id}
+                            partnerEmail={user?.partnerEmail}
+                            isMaximized={isTransactionListMaximized}
+                            onMaximizedChange={handleMaximizedChange}
+                        />
+                    </div>
 
-                    {/* Content Area */}
-                    <div className="px-4 pb-20 lg:pb-4">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            {/* Left Column - Transactions */}
-                            <div className="flex flex-col gap-4">
-                                <TransactionList
-                                    selectedView={selectedView}
-                                    transactions={transactions}
-                                    loading={loading}
-                                    updateTransactionStatus={onUpdateTransaction}
-                                    onEditTransaction={handleEditTransaction}
-                                    onDeleteTransaction={onDeleteTransaction}
-                                    onTransactionUpdate={onRefresh}
-                                    currentUserId={user?.id}
-                                    partnerEmail={user?.partnerEmail}
-                                    isMaximized={isTransactionListMaximized}
-                                    onMaximizedChange={handleMaximizedChange}
-                                />
-                            </div>
+                    {/* Botão Flutuante para adicionar transação */}
+                    <div className="flex-shrink-0">
+                        <FloatingButton
+                            selectedView={selectedView}
+                            onClick={() => setShowAddTransaction(true)}
+                        />
+                    </div>
+                </div>
+            )}
 
-                            {/* Right Column - Charts */}
-                            <div className="flex flex-col gap-4">
-                                <ChartsSection
-                                    selectedView={selectedView}
-                                    summary={summary}
-                                    loading={loading}
-                                    transactions={transactions}
-                                    currentUserId={user?.id}
-                                    partnerEmail={user?.partnerEmail}
-                                />
+            {/* Layout Normal */}
+            <div className={`relative flex flex-col lg:flex-row h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-300 ${isTransactionListMaximized ? 'hidden lg:flex' : ''}`}>
+                {/* Background decorativo sutil */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+
+                {/* Main Content - Dashboard com scroll */}
+                <div className={`flex-1 flex flex-col w-full overflow-hidden transition-all duration-500 relative ${editingTransaction ? 'lg:brightness-50 lg:contrast-75' : ''
+                    }`}>
+                    {/* Overlay para desktop quando editando */}
+                    {editingTransaction && (
+                        <div
+                            data-overlay="editing"
+                            className="hidden lg:block absolute inset-0 bg-black/20 z-10 transition-opacity duration-500 cursor-pointer"
+                            onClick={() => setEditingTransaction(null)}
+                            title="Clique para cancelar edição"
+                        />
+                    )}
+                    {/* Dashboard Content with scroll */}
+                    <div className="h-full overflow-y-auto overflow-x-hidden">{/* Month Navigation */}
+                        <MonthSelector
+                            selectedMonth={selectedMonth}
+                            selectedYear={selectedYear}
+                            selectedView={selectedView}
+                            onMonthChange={onMonthChange}
+                            onYearChange={onYearChange}
+                            summary={summary}
+                        />
+
+                        {/* Balance Card */}
+                        <BalanceCard
+                            selectedView={selectedView}
+                            selectedMonth={selectedMonth}
+                            onViewChange={onViewChange}
+                            summary={summary}
+                            totalSummary={totalSummary}
+                            loading={loading}
+                            hasCouple={hasCouple}
+                            isCompact={isTransactionListMaximized}
+                        />
+
+                        {/* Content Area */}
+                        <div className="px-4 pb-20 lg:pb-4">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                {/* Left Column - Transactions */}
+                                <div className="flex flex-col gap-4">
+                                    <TransactionList
+                                        selectedView={selectedView}
+                                        transactions={transactions}
+                                        loading={loading}
+                                        updateTransactionStatus={onUpdateTransaction}
+                                        onEditTransaction={handleEditTransaction}
+                                        onDeleteTransaction={onDeleteTransaction}
+                                        onTransactionUpdate={onRefresh}
+                                        currentUserId={user?.id}
+                                        partnerEmail={user?.partnerEmail}
+                                        isMaximized={isTransactionListMaximized}
+                                        onMaximizedChange={handleMaximizedChange}
+                                    />
+                                </div>
+
+                                {/* Right Column - Charts */}
+                                <div className="flex flex-col gap-4">
+                                    <ChartsSection
+                                        selectedView={selectedView}
+                                        summary={summary}
+                                        loading={loading}
+                                        transactions={transactions}
+                                        currentUserId={user?.id}
+                                        partnerEmail={user?.partnerEmail}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -228,6 +287,6 @@ export default function DashboardPage() {
                     onClick={() => setShowAddTransaction(false)}
                 />
             )}
-        </div>
+        </>
     )
 }

@@ -155,15 +155,17 @@ export function BalanceCard({
                                     </p>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <div className="text-right">
-                                        <p className="text-[9px] opacity-80 font-semibold mb-0.5">RECEITAS</p>
-                                        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 transition-colors duration-300">+{getReceitas()}</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[9px] opacity-80 font-semibold mb-0.5">DESPESAS</p>
-                                        <p className="text-sm font-semibold text-rose-700 dark:text-rose-300 transition-colors duration-300">-{getDespesas()}</p>
-                                    </div>
+                                <div className="text-right">
+                                    <p className="text-[10px] opacity-80 font-semibold tracking-wide mb-0.5">SALDO PREVISTO</p>
+                                    <p className={`text-lg font-bold leading-tight transition-all duration-300 ${(() => {
+                                        if (loading) return 'opacity-90'
+                                        const projectedBalance = getProjectedBalance()
+                                        if (projectedBalance.includes('-')) return 'text-rose-600 dark:text-rose-300'
+                                        if (projectedBalance === 'R$ 0,00') return 'text-slate-600 dark:text-slate-300'
+                                        return 'text-emerald-600 dark:text-emerald-300'
+                                    })()}`}>
+                                        {getProjectedBalance()}
+                                    </p>
                                 </div>
                             </div>
                         </div>
