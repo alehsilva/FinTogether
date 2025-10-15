@@ -363,8 +363,8 @@ export function AddTransactionPanel({
         : "fixed inset-0 z-[9999] bg-white dark:bg-slate-900 backdrop-blur-2xl overflow-x-hidden transition-colors duration-300"
 
     const contentClasses = isFixed
-        ? "h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden"
-        : "h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] w-full overflow-y-auto overflow-x-hidden px-4"
+        ? "h-[calc(var(--vh,1vh)*100-4rem)] max-h-[calc(var(--vh,1vh)*100-4rem)] overflow-y-auto overflow-x-hidden"
+        : "h-[calc(var(--vh,1vh)*100-4rem)] max-h-[calc(var(--vh,1vh)*100-4rem)] w-full overflow-y-auto overflow-x-hidden px-4"
 
     return (
         <div ref={panelRef} className={containerClasses}>
