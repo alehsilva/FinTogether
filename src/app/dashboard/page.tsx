@@ -234,25 +234,25 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Right Panel - Add Transaction (Painel Fixo Desktop) */}
-            <AddTransactionPanel
-                key={editingTransaction?.id ? `desktop-${editingTransaction.id}` : 'desktop-new'}
-                isOpen={true}
-                isFixed={true}
-                onClose={() => {
-                    setEditingTransaction(null)
-                }}
-                onTransactionAdded={handleTransactionCreated}
-                onCreateTransaction={onCreateTransaction}
-                onEditTransaction={onEditTransaction}
-                categories={categories}
-                userId={user?.id ?? ''}
-                isLoading={isCreating}
-                hasCouple={hasCouple}
-                editingTransaction={editingTransaction}
-            />
+                {/* Right Panel - Add Transaction (Painel Fixo Desktop) */}
+                <AddTransactionPanel
+                    key={editingTransaction?.id ? `desktop-${editingTransaction.id}` : 'desktop-new'}
+                    isOpen={true}
+                    isFixed={true}
+                    onClose={() => {
+                        setEditingTransaction(null)
+                    }}
+                    onTransactionAdded={handleTransactionCreated}
+                    onCreateTransaction={onCreateTransaction}
+                    onEditTransaction={onEditTransaction}
+                    categories={categories}
+                    userId={user?.id ?? ''}
+                    isLoading={isCreating}
+                    hasCouple={hasCouple}
+                    editingTransaction={editingTransaction}
+                />
+            </div>
 
             {/* Modal para Mobile */}
             <AddTransactionPanel
