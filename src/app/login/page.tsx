@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
     return (
-        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
+        <div className="min-h-screen-mobile relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
             {/* Grid animado de fundo */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] animate-[grid_20s_linear_infinite]" />
 
@@ -29,7 +29,7 @@ export default function LoginPage() {
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
 
             {/* Conteúdo de login */}
-            <div className="relative z-10 min-h-screen min-h-[100dvh] flex items-center justify-center py-4 sm:py-8 px-4">
+            <div className="relative z-10 min-h-screen-mobile flex items-center justify-center py-4 sm:py-8 px-4">
                 <GoogleAuth />
             </div>
 

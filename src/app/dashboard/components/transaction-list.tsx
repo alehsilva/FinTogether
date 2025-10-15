@@ -122,7 +122,7 @@ export function TransactionList({
         <>
             <Card
                 className={`flex-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border-slate-300 dark:border-slate-700/50 transition-all duration-300 ${isMaximized
-                    ? 'rounded-lg shadow-lg'
+                    ? 'rounded-none shadow-lg -mx-4 px-4'
                     : 'md:max-h-none max-h-[500px]'
                     }`}
             >

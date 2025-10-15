@@ -133,7 +133,7 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Lista de transações expansível */}
-                    <div className="flex-1 px-4 pb-4 overflow-hidden">
+                    <div className="flex-1 overflow-hidden">
                         <TransactionList
                             selectedView={selectedView}
                             transactions={transactions}

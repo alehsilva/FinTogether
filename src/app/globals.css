@@ -222,4 +222,15 @@ html, body {
   }
 }
 
+/* Classes de viewport height para mobile */
+.h-screen-mobile {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.min-h-screen-mobile {
+  min-height: 100vh; /* Fallback */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
 

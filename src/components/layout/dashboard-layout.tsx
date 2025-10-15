@@ -24,7 +24,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
     // Layout do dashboard para usuários logados
     return (
-        <div className="h-screen flex bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+        <div className="h-screen-mobile flex bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
             {/* Background grid sutil */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
