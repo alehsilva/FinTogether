@@ -49,27 +49,24 @@ export function TransactionCalendar({
     }
 
     return (
-        <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/40 dark:to-slate-900/40 mx-0 lg:mx-4 mt-2 rounded-lg overflow-x-hidden border border-slate-200 dark:border-slate-700/30 backdrop-blur-sm shadow-md transition-all duration-300">
-            {/* Versão Mobile - Input de Data Nativo */}
-            <div className="block lg:hidden p-3">
-                <div className="flex items-center gap-3">
-                    <Calendar className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-                    <div className="flex-1">
-                        <label className="block text-slate-700 dark:text-slate-300 text-xs font-medium mb-1">
-                            DATA DA TRANSAÇÃO
-                        </label>
-                        <input
-                            type="date"
-                            value={formatDateForInput(selectedDate)}
-                            onChange={(e) => handleDateInputChange(e.target.value)}
-                            className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-200"
-                        />
-                    </div>
+        <div className="mx-0 lg:mx-4 mt-2 transition-all duration-300">
+            {/* Versão Mobile - Input de Data Simples */}
+            <div className="block lg:hidden px-3">
+                <div>
+                    <label className="block text-slate-700 dark:text-slate-300 text-xs font-medium mb-1">
+                        DATA
+                    </label>
+                    <input
+                        type="date"
+                        value={formatDateForInput(selectedDate)}
+                        onChange={(e) => handleDateInputChange(e.target.value)}
+                        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-2 text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-200"
+                    />
                 </div>
             </div>
 
             {/* Versão Desktop Completa */}
-            <div className="hidden lg:block p-3">
+            <div className="hidden lg:block bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/40 dark:to-slate-900/40 rounded-lg overflow-x-hidden border border-slate-200 dark:border-slate-700/30 backdrop-blur-sm shadow-md p-3">
                 <div className="mb-2">
                     <div className="flex items-center justify-between text-sm mb-2">
                         <Button

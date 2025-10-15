@@ -221,32 +221,12 @@ export default function ConfiguracoesPage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             <div className="container mx-auto py-4 px-4 sm:py-6 sm:px-6 max-w-4xl">
                 <div className="mb-4 sm:mb-6">
-                    {/* Cabeçalho com botão voltar para mobile */}
-                    <div className="flex items-center gap-3 mb-3 sm:hidden">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => router.push('/dashboard')}
-                            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200"
-                            title="Voltar ao Dashboard"
-                        >
-                            <Home className="h-5 w-5 text-slate-600 dark:text-slate-400" />
-                        </Button>
-                        <div className="h-6 w-px bg-slate-300 dark:bg-slate-600"></div>
-                        <h1 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
-                            Configurações
-                        </h1>
-                    </div>
-
-                    {/* Cabeçalho normal para desktop */}
-                    <div className="hidden sm:block">
-                        <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent mb-2">
-                            Configurações
-                        </h1>
-                        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
-                            Gerencie suas configurações e pareamento com seu(ua) parceiro(a)
-                        </p>
-                    </div>
+                    <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent mb-2">
+                        Configurações
+                    </h1>
+                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+                        Gerencie suas configurações e pareamento com seu(ua) parceiro(a)
+                    </p>
                 </div>
 
                 {/* Card principal unificado */}

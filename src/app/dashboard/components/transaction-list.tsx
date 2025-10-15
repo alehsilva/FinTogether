@@ -126,7 +126,7 @@ export function TransactionList({
         <>
             <Card
                 className={`flex-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border-slate-300 dark:border-slate-700/50 transition-all duration-300 ${isMaximized
-                    ? 'fixed inset-x-0 bottom-0 top-[230px] z-10 rounded-t-2xl rounded-b-none shadow-2xl md:relative md:rounded-lg md:max-h-none'
+                    ? 'fixed inset-x-0 bottom-0 top-[280px] z-10 rounded-t-2xl rounded-b-none shadow-2xl md:relative md:rounded-lg md:max-h-none'
                     : 'md:max-h-none max-h-[500px]'
                     }`}
             >
@@ -279,7 +279,7 @@ export function TransactionList({
                 <CardContent
                     data-scroll-container
                     className={`space-y-2 px-4 pb-4 pt-3 overflow-y-auto ${isMaximized
-                        ? 'h-[calc(100vh-380px)]'
+                        ? 'h-[calc(100vh-340px)]'
                         : 'max-h-[400px] md:max-h-[300px]'
                         }`}
                 >
