@@ -12,6 +12,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { FinTogetherLogo, FinTogetherIcon } from '@/components/ui/fintogether-logo'
+import { PWAInstallButton } from '@/components/ui/pwa-install-button'
 import { useTheme } from '@/contexts/ThemeContext'
 import type { Partner } from '@/models/user'
 import type { AuthUser } from '@/models/auth'
@@ -136,6 +137,11 @@ export function Header({ user, onSignOut }: HeaderProps) {
 
                     {/* Logo */}
                     <FinTogetherLogo size={40} />
+                </div>
+
+                {/* Centro - Botão PWA */}
+                <div className="flex-1 flex justify-center">
+                    <PWAInstallButton />
                 </div>
 
                 {/* User dropdown com fotos do casal */}

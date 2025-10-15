@@ -5,6 +5,7 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { QueryProvider } from '@/lib/query-client';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { PWAUpdatePrompt } from '@/components/ui/pwa-update-prompt';
+import { PWAPromptBanner } from '@/components/ui/pwa-prompt-banner';
 
 // IBM Plex Sans - Fonte profissional para fintechs
 // Excelente legibilidade, desenhada para apps corporativos
@@ -140,6 +141,7 @@ export default function RootLayout({
           <QueryProvider>
             {children}
             <PWAUpdatePrompt />
+            <PWAPromptBanner />
           </QueryProvider>
         </ThemeProvider>
       </body>
