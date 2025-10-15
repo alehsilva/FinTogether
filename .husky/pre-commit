@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Pre-commit hook para executar verificações do Biome
+
+echo "🔍 Executando verificações do Biome..."
+
+# Executa check do Biome
+npm run check:fix
+
+# Verifica se houve erros
+if [ $? -ne 0 ]; then
+    echo "❌ Verificação do Biome falhou. Corrija os erros antes de fazer commit."
+    exit 1
+fi
+
+echo "✅ Verificações do Biome passaram!"
+
+# Adiciona arquivos formatados
+git add -A
+
+exit 0

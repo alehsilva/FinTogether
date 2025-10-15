@@ -1,0 +1,563 @@
+// Definições do banco de dados Supabase - Sistema Financeiro para Casais
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export interface Database {
+  public: {
+    Tables: {
+      users: {
+        Row: {
+          id: string
+          email: string
+          full_name: string | null
+          first_name: string | null
+          last_name: string | null
+          avatar_url: string | null
+          phone: string | null
+          date_of_birth: string | null
+          gender: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          bio: string | null
+          location: string | null
+          website: string | null
+          provider: string
+          provider_id: string | null
+          is_verified: boolean
+          is_active: boolean
+          email_notifications: boolean
+          push_notifications: boolean
+          marketing_emails: boolean
+          profile_visibility: 'public' | 'private' | 'friends'
+          show_email: boolean
+          show_phone: boolean
+          timezone: string
+          language: string
+          country: string
+          last_login_at: string | null
+          login_count: number
+          created_at: string
+          updated_at: string
+          deleted_at: string | null
+          // Novos campos para sistema de casais
+          spouse_id: string | null
+          display_name: string | null
+          birth_date: string | null
+          preferred_currency: string
+          notification_preferences: Json
+          couple_linked_at: string | null
+          is_premium: boolean
+        }
+        Insert: {
+          id: string
+          email: string
+          full_name?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          avatar_url?: string | null
+          phone?: string | null
+          date_of_birth?: string | null
+          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          bio?: string | null
+          location?: string | null
+          website?: string | null
+          provider?: string
+          provider_id?: string | null
+          is_verified?: boolean
+          is_active?: boolean
+          email_notifications?: boolean
+          push_notifications?: boolean
+          marketing_emails?: boolean
+          profile_visibility?: 'public' | 'private' | 'friends'
+          show_email?: boolean
+          show_phone?: boolean
+          timezone?: string
+          language?: string
+          country?: string
+          last_login_at?: string | null
+          login_count?: number
+          created_at?: string
+          updated_at?: string
+          deleted_at?: string | null
+        }
+        Update: {
+          id?: string
+          email?: string
+          full_name?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          avatar_url?: string | null
+          phone?: string | null
+          date_of_birth?: string | null
+          gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say' | null
+          bio?: string | null
+          location?: string | null
+          website?: string | null
+          provider?: string
+          provider_id?: string | null
+          is_verified?: boolean
+          is_active?: boolean
+          email_notifications?: boolean
+          push_notifications?: boolean
+          marketing_emails?: boolean
+          profile_visibility?: 'public' | 'private' | 'friends'
+          show_email?: boolean
+          show_phone?: boolean
+          timezone?: string
+          language?: string
+          country?: string
+          last_login_at?: string | null
+          login_count?: number
+          updated_at?: string
+          deleted_at?: string | null
+        }
+      }
+      transactions: {
+        Row: {
+          id: string
+          user_id: string
+          couple_id: string | null
+          account_id: string
+          category_id: string
+          title: string
+          description: string | null
+          amount: number
+          type: 'receita' | 'despesa' | 'transferencia'
+          privacy: 'casal' | 'privado'
+          transaction_date: string
+          due_date: string | null
+          status: 'pending' | 'completed' | 'cancelled'
+          payment_method: string | null
+          location: string | null
+          receipt_url: string | null
+          tags: string[] | null
+          installments: number
+          installment_number: number
+          parent_transaction_id: string | null
+          recurring_rule_id: string | null
+          transaction_category: 'simples' | 'parcelada' | 'recorrente'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          couple_id?: string | null
+          account_id: string
+          category_id: string
+          title: string
+          description?: string | null
+          amount: number
+          type: 'receita' | 'despesa' | 'transferencia'
+          privacy: 'casal' | 'privado'
+          transaction_date: string
+          due_date?: string | null
+          status?: 'pending' | 'completed' | 'cancelled'
+          payment_method?: string | null
+          location?: string | null
+          receipt_url?: string | null
+          tags?: string[] | null
+          installments?: number
+          installment_number?: number
+          parent_transaction_id?: string | null
+          recurring_rule_id?: string | null
+          transaction_category?: 'simples' | 'parcelada' | 'recorrente'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          couple_id?: string | null
+          account_id?: string
+          category_id?: string
+          title?: string
+          description?: string | null
+          amount?: number
+          type?: 'receita' | 'despesa' | 'transferencia'
+          privacy?: 'casal' | 'privado'
+          transaction_date?: string
+          due_date?: string | null
+          status?: 'pending' | 'completed' | 'cancelled'
+          payment_method?: string | null
+          location?: string | null
+          receipt_url?: string | null
+          tags?: string[] | null
+          installments?: number
+          installment_number?: number
+          parent_transaction_id?: string | null
+          recurring_rule_id?: string | null
+          transaction_category?: 'simples' | 'parcelada' | 'recorrente'
+          updated_at?: string
+        }
+      }
+      couples: {
+        Row: {
+          id: string
+          name: string
+          partner_1_email: string
+          partner_2_email: string
+          status: 'active' | 'inactive' | 'pending'
+          partner_1_accepted: boolean
+          partner_2_accepted: boolean
+          shared_budget_enabled: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          partner_1_email: string
+          partner_2_email: string
+          status?: 'active' | 'inactive' | 'pending'
+          partner_1_accepted?: boolean
+          partner_2_accepted?: boolean
+          shared_budget_enabled?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          partner_1_email?: string
+          partner_2_email?: string
+          status?: 'active' | 'inactive' | 'pending'
+          partner_1_accepted?: boolean
+          partner_2_accepted?: boolean
+          shared_budget_enabled?: boolean
+          updated_at?: string
+        }
+      }
+      accounts: {
+        Row: {
+          id: string
+          user_id: string
+          couple_id: string | null
+          name: string
+          type: 'checking' | 'savings' | 'investment' | 'cash' | 'credit_card'
+          bank_name: string | null
+          initial_balance: number
+          current_balance: number
+          credit_limit: number
+          is_shared: boolean
+          is_active: boolean
+          color: string
+          icon: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          couple_id?: string | null
+          name: string
+          type: 'checking' | 'savings' | 'investment' | 'cash' | 'credit_card'
+          bank_name?: string | null
+          initial_balance?: number
+          current_balance?: number
+          credit_limit?: number
+          is_shared?: boolean
+          is_active?: boolean
+          color?: string
+          icon?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          couple_id?: string | null
+          name?: string
+          type?: 'checking' | 'savings' | 'investment' | 'cash' | 'credit_card'
+          bank_name?: string | null
+          initial_balance?: number
+          current_balance?: number
+          credit_limit?: number
+          is_shared?: boolean
+          is_active?: boolean
+          color?: string
+          icon?: string
+          updated_at?: string
+        }
+      }
+      categories: {
+        Row: {
+          id: string
+          user_id: string | null
+          couple_id: string | null
+          name: string
+          type: 'receita' | 'despesa'
+          icon: string
+          color: string
+          is_system: boolean
+          is_active: boolean
+          parent_category_id: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          name: string
+          type: 'receita' | 'despesa'
+          icon?: string
+          color?: string
+          is_system?: boolean
+          is_active?: boolean
+          parent_category_id?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          name?: string
+          type?: 'receita' | 'despesa'
+          icon?: string
+          color?: string
+          is_system?: boolean
+          is_active?: boolean
+          parent_category_id?: string | null
+        }
+      }
+      financial_goals: {
+        Row: {
+          id: string
+          user_id: string | null
+          couple_id: string | null
+          title: string
+          description: string | null
+          target_amount: number
+          current_amount: number
+          target_date: string | null
+          category: string | null
+          priority: 'baixa' | 'media' | 'alta'
+          is_shared: boolean
+          auto_transfer: boolean
+          auto_transfer_amount: number | null
+          auto_transfer_frequency: string | null
+          status: 'active' | 'completed' | 'paused' | 'cancelled'
+          completed_at: string | null
+          icon: string
+          color: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          title: string
+          description?: string | null
+          target_amount: number
+          current_amount?: number
+          target_date?: string | null
+          category?: string | null
+          priority?: 'baixa' | 'media' | 'alta'
+          is_shared?: boolean
+          auto_transfer?: boolean
+          auto_transfer_amount?: number | null
+          auto_transfer_frequency?: string | null
+          status?: 'active' | 'completed' | 'paused' | 'cancelled'
+          completed_at?: string | null
+          icon?: string
+          color?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          title?: string
+          description?: string | null
+          target_amount?: number
+          current_amount?: number
+          target_date?: string | null
+          category?: string | null
+          priority?: 'baixa' | 'media' | 'alta'
+          is_shared?: boolean
+          auto_transfer?: boolean
+          auto_transfer_amount?: number | null
+          auto_transfer_frequency?: string | null
+          status?: 'active' | 'completed' | 'paused' | 'cancelled'
+          completed_at?: string | null
+          icon?: string
+          color?: string
+          updated_at?: string
+        }
+      }
+      goal_contributions: {
+        Row: {
+          id: string
+          goal_id: string
+          user_id: string
+          transaction_id: string | null
+          amount: number
+          contribution_date: string
+          type: 'manual' | 'automatic' | 'transfer'
+          notes: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          goal_id: string
+          user_id: string
+          transaction_id?: string | null
+          amount: number
+          contribution_date: string
+          type?: 'manual' | 'automatic' | 'transfer'
+          notes?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          goal_id?: string
+          user_id?: string
+          transaction_id?: string | null
+          amount?: number
+          contribution_date?: string
+          type?: 'manual' | 'automatic' | 'transfer'
+          notes?: string | null
+        }
+      }
+      budgets: {
+        Row: {
+          id: string
+          user_id: string | null
+          couple_id: string | null
+          category_id: string | null
+          name: string
+          amount: number
+          spent_amount: number
+          period_type: 'mensal' | 'anual' | 'semanal'
+          start_date: string
+          end_date: string
+          is_shared: boolean
+          alert_percentage: number
+          status: 'active' | 'inactive'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          category_id?: string | null
+          name: string
+          amount: number
+          spent_amount?: number
+          period_type?: 'mensal' | 'anual' | 'semanal'
+          start_date: string
+          end_date: string
+          is_shared?: boolean
+          alert_percentage?: number
+          status?: 'active' | 'inactive'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          couple_id?: string | null
+          category_id?: string | null
+          name?: string
+          amount?: number
+          spent_amount?: number
+          period_type?: 'mensal' | 'anual' | 'semanal'
+          start_date?: string
+          end_date?: string
+          is_shared?: boolean
+          alert_percentage?: number
+          status?: 'active' | 'inactive'
+          updated_at?: string
+        }
+      }
+      recurring_rules: {
+        Row: {
+          id: string
+          user_id: string
+          couple_id: string | null
+          frequency: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          interval_count: number
+          start_date: string
+          end_date: string | null
+          max_occurrences: number | null
+          title: string
+          description: string | null
+          amount: number
+          type: 'receita' | 'despesa'
+          category_id: string
+          account_id: string
+          payment_method: string | null
+          location: string | null
+          tags: string[] | null
+          is_active: boolean
+          next_execution_date: string | null
+          execution_count: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          couple_id?: string | null
+          frequency: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          interval_count?: number
+          start_date: string
+          end_date?: string | null
+          max_occurrences?: number | null
+          title: string
+          description?: string | null
+          amount: number
+          type: 'receita' | 'despesa'
+          category_id: string
+          account_id: string
+          payment_method?: string | null
+          location?: string | null
+          tags?: string[] | null
+          is_active?: boolean
+          next_execution_date?: string | null
+          execution_count?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          couple_id?: string | null
+          frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          interval_count?: number
+          start_date?: string
+          end_date?: string | null
+          max_occurrences?: number | null
+          title?: string
+          description?: string | null
+          amount?: number
+          type?: 'receita' | 'despesa'
+          category_id?: string
+          account_id?: string
+          payment_method?: string | null
+          location?: string | null
+          tags?: string[] | null
+          is_active?: boolean
+          next_execution_date?: string | null
+          execution_count?: number
+          updated_at?: string
+        }
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+  }
+}

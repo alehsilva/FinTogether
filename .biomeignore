@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Environment files
+.env*
+
+# Cache directories
+.cache/
+.biome_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Lock files (optional - some teams prefer to format these)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated files
+next-env.d.ts
+
+# Public assets (optional - depends on your preference)
+public/
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Configuration files that should not be formatted
+*.min.js
+*.min.css
