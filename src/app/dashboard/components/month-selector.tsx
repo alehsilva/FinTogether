@@ -55,19 +55,23 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                 // Swipe para esquerda = próximo mês
                 if (currentIndex < months.length - 1) {
                     onMonthChange(months[currentIndex + 1])
+                    scrollToCurrentMonth(true) // Anima no swipe
                 } else {
                     // Dezembro -> Janeiro do próximo ano
                     onYearChange(selectedYear + 1)
                     onMonthChange(months[0])
+                    scrollToCurrentMonth(true)
                 }
             } else if (isRightSwipe) {
                 // Swipe para direita = mês anterior
                 if (currentIndex > 0) {
                     onMonthChange(months[currentIndex - 1])
+                    scrollToCurrentMonth(true) // Anima no swipe
                 } else {
                     // Janeiro -> Dezembro do ano anterior
                     onYearChange(selectedYear - 1)
                     onMonthChange(months[11])
+                    scrollToCurrentMonth(true)
                 }
             }
         }
@@ -92,7 +96,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
         })
     }
 
-    const scrollToCurrentMonth = () => {
+    const scrollToCurrentMonth = (animated: boolean = true) => {
         if (!monthsRef.current) return
 
         const currentMonthIndex = months.findIndex(month => month === selectedMonth)
@@ -111,24 +115,24 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
 
             container.scrollTo({
                 left: Math.max(0, scrollLeft),
-                behavior: 'smooth'
+                behavior: animated ? 'smooth' : 'instant'
             })
         }
     }
 
-    // Sempre centralizar no mês selecionado quando muda
+    // Centralizar no mês selecionado quando muda (sem animação para evitar "folhear")
     useEffect(() => {
-        const timer = setTimeout(scrollToCurrentMonth, 100) // Delay reduzido para mais responsividade
+        const timer = setTimeout(() => scrollToCurrentMonth(false), 50) // Instantâneo
         return () => clearTimeout(timer)
     }, [selectedMonth])
 
-    // Centralizar também no mount inicial e em mudanças de tela
+    // Centralizar no mount inicial (sem animação)
     useEffect(() => {
-        const timer = setTimeout(scrollToCurrentMonth, 200)
+        const timer = setTimeout(() => scrollToCurrentMonth(false), 100) // Instantâneo
 
-        // Listener para mudanças de orientação/resize
+        // Listener para mudanças de orientação/resize (sem animação)
         const handleResize = () => {
-            setTimeout(scrollToCurrentMonth, 100)
+            setTimeout(() => scrollToCurrentMonth(false), 50)
         }
 
         window.addEventListener('resize', handleResize)
@@ -161,10 +165,12 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                                 const currentIndex = months.findIndex(month => month === selectedMonth)
                                 if (currentIndex > 0) {
                                     onMonthChange(months[currentIndex - 1])
+                                    scrollToCurrentMonth(true) // Anima quando clica na seta
                                 } else {
                                     // Janeiro -> Dezembro do ano anterior
                                     onYearChange(selectedYear - 1)
                                     onMonthChange(months[11])
+                                    scrollToCurrentMonth(true)
                                 }
                             }}
                             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-200 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700/50 active:scale-90 shadow-sm bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm cursor-pointer"
@@ -179,10 +185,12 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                                 const currentIndex = months.findIndex(month => month === selectedMonth)
                                 if (currentIndex < months.length - 1) {
                                     onMonthChange(months[currentIndex + 1])
+                                    scrollToCurrentMonth(true) // Anima quando clica na seta
                                 } else {
                                     // Dezembro -> Janeiro do próximo ano
                                     onYearChange(selectedYear + 1)
                                     onMonthChange(months[0])
+                                    scrollToCurrentMonth(true)
                                 }
                             }}
                             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-200 p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700/50 active:scale-90 shadow-sm bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm cursor-pointer"
@@ -212,6 +220,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
                                 variant="ghost"
                                 onClick={() => {
                                     onMonthChange(month)
+                                    scrollToCurrentMonth(true) // Anima quando clica direto no mês
                                     // Não precisa mudar ano no click direto, só nos swipes nos limites
                                 }}
                                 className={`text-sm font-bold transition-all duration-300 ease-in-out flex-shrink-0 min-w-[85px] h-12 rounded-xl relative overflow-hidden ${selectedMonth === month

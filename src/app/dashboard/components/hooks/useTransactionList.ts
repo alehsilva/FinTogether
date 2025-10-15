@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import type { Transaction } from '@/models/financial'
+import { useScrollLock } from '@/hooks/useScrollLock'
 
 interface UseTransactionListProps {
     transactions: Transaction[]
@@ -37,8 +38,25 @@ export function useTransactionList({
     const [showMaximizeTip, setShowMaximizeTip] = useState(false)
     const [pendingDelete, setPendingDelete] = useState<{ id: string; option?: 'single' | 'all' } | null>(null)
     const [showUndoToast, setShowUndoToast] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
     const deleteTimerRef = useRef<NodeJS.Timeout | null>(null)
     const lastMaximizedStateRef = useRef(isMaximized)
+
+    // Detectar se é mobile e aplicar scroll lock quando necessário
+    useEffect(() => {
+        if (typeof window === 'undefined') return
+
+        const checkIsMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+
+        checkIsMobile()
+        window.addEventListener('resize', checkIsMobile)
+        return () => window.removeEventListener('resize', checkIsMobile)
+    }, [])
+
+    // Aplicar scroll lock quando maximizado no mobile
+    useScrollLock(isMaximized && isMobile)
 
     useEffect(() => {
         return () => {

@@ -216,12 +216,12 @@ export default function ConfiguracoesPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-            <div className="container mx-auto py-6 px-6 max-w-4xl">
-                <div className="mb-6">
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent mb-2">
+            <div className="container mx-auto py-4 px-4 sm:py-6 sm:px-6 max-w-4xl">
+                <div className="mb-4 sm:mb-6">
+                    <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent mb-2">
                         Configurações
                     </h1>
-                    <p className="text-slate-600 dark:text-slate-400">
+                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
                         Gerencie suas configurações e pareamento com seu(ua) parceiro(a)
                     </p>
                 </div>
@@ -232,7 +232,7 @@ export default function ConfiguracoesPage() {
                         <div className="divide-y divide-slate-200/60 dark:divide-slate-700/50">
 
                             {/* Seção do Perfil */}
-                            <div className="p-6">
+                            <div className="p-4 sm:p-6">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
                                         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -245,26 +245,28 @@ export default function ConfiguracoesPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-6">
-                                    <Avatar className="h-16 w-16 ring-2 ring-emerald-200 dark:ring-emerald-800 ring-offset-2 dark:ring-offset-slate-900">
-                                        <AvatarImage src={userMetadata.avatar_url} alt={currentUserName} />
-                                        <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white text-lg font-bold">
-                                            {extractInitials(currentUserName)}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div className="flex-1">
-                                        <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100 mb-1">{currentUserName}</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 mb-2">{user.email}</p>
-                                        <Badge className="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 font-medium">
-                                            Conta Principal
-                                        </Badge>
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                                    <div className="flex items-center gap-4 w-full sm:w-auto">
+                                        <Avatar className="h-14 w-14 sm:h-16 sm:w-16 ring-2 ring-emerald-200 dark:ring-emerald-800 ring-offset-2 dark:ring-offset-slate-900">
+                                            <AvatarImage src={userMetadata.avatar_url} alt={currentUserName} />
+                                            <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white text-sm sm:text-lg font-bold">
+                                                {extractInitials(currentUserName)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="font-bold text-base sm:text-lg text-slate-900 dark:text-slate-100 mb-1 truncate">{currentUserName}</h3>
+                                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-2 truncate">{user.email}</p>
+                                            <Badge className="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 font-medium text-xs">
+                                                Conta Principal
+                                            </Badge>
+                                        </div>
                                     </div>
                                     <Button
                                         size="sm"
                                         variant="outline"
                                         onClick={manualRefresh}
                                         disabled={buttonLoading}
-                                        className="border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 cursor-pointer transition-all duration-200 shadow-sm"
+                                        className="border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 cursor-pointer transition-all duration-200 shadow-sm w-full sm:w-auto"
                                     >
                                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -275,7 +277,7 @@ export default function ConfiguracoesPage() {
                             </div>
 
                             {/* Seção PWA - App Installation */}
-                            <div className="p-6">
+                            <div className="p-4 sm:p-6">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                                         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -284,25 +286,25 @@ export default function ConfiguracoesPage() {
                                     </div>
                                     <div>
                                         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Instalar App</h2>
-                                        <p className="text-slate-600 dark:text-slate-400">Baixe o FinTogether como aplicativo nativo</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">Baixe o FinTogether como aplicativo nativo</p>
                                     </div>
                                 </div>
 
-                                <div className="p-6 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-800 shadow-sm">
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-blue-500 dark:bg-blue-600 flex items-center justify-center flex-shrink-0">
-                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-800 shadow-sm">
+                                    <div className="flex flex-col sm:flex-row items-start gap-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500 dark:bg-blue-600 flex items-center justify-center flex-shrink-0">
+                                            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                             </svg>
                                         </div>
-                                        <div className="flex-1">
-                                            <h4 className="font-bold text-blue-900 dark:text-blue-300 text-lg mb-2">Instale como App Nativo</h4>
-                                            <p className="text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
+                                        <div className="flex-1 min-w-0">
+                                            <h4 className="font-bold text-blue-900 dark:text-blue-300 text-base sm:text-lg mb-2">Instale como App Nativo</h4>
+                                            <p className="text-sm sm:text-base text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
                                                 Instale o FinTogether no seu dispositivo para ter acesso rápido, funcionar offline e uma experiência mais fluida.
                                             </p>
 
                                             {/* Benefícios */}
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                                            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
                                                 <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
                                                     <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
@@ -330,7 +332,7 @@ export default function ConfiguracoesPage() {
                                             </div>
 
                                             {/* Botão de instalação */}
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                                                 <PWAInstallButton />
                                                 <div className="text-xs text-blue-600 dark:text-blue-400">
                                                     Disponível para Android, iOS e Desktop
@@ -342,7 +344,7 @@ export default function ConfiguracoesPage() {
                             </div>
 
                             {/* Seção de Pareamento */}
-                            <div className="p-6">
+                            <div className="p-4 sm:p-6">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
                                         <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -531,7 +533,7 @@ export default function ConfiguracoesPage() {
                             </div>
 
                             {/* Seção de Zona Perigosa */}
-                            <div className="p-6">
+                            <div className="p-4 sm:p-6">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-red-500 flex items-center justify-center">
                                         <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -544,9 +546,9 @@ export default function ConfiguracoesPage() {
                                     </div>
                                 </div>
 
-                                <div className="p-6 rounded-xl border border-rose-200 dark:border-rose-800 bg-gradient-to-r from-rose-50/50 to-red-50/50 dark:from-rose-950/30 dark:to-red-950/30">
-                                    <div className="flex items-center justify-between">
-                                        <div>
+                                <div className="p-4 sm:p-6 rounded-xl border border-rose-200 dark:border-rose-800 bg-gradient-to-r from-rose-50/50 to-red-50/50 dark:from-rose-950/30 dark:to-red-950/30">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                                        <div className="flex-1">
                                             <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">Excluir conta</h4>
                                             <p className="text-sm text-slate-600 dark:text-slate-400">
                                                 Remove permanentemente sua conta e todos os dados associados
@@ -555,7 +557,7 @@ export default function ConfiguracoesPage() {
                                         <Button
                                             variant="destructive"
                                             size="sm"
-                                            className="bg-rose-600 hover:bg-rose-700 dark:bg-rose-700 dark:hover:bg-rose-600 text-white shadow-sm cursor-pointer"
+                                            className="bg-rose-600 hover:bg-rose-700 dark:bg-rose-700 dark:hover:bg-rose-600 text-white shadow-sm cursor-pointer w-full sm:w-auto"
                                         >
                                             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
