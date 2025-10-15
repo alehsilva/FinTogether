@@ -15,6 +15,7 @@ import { createClient } from '@/lib/supabase/client'
 import { couplesService } from '@/services/couplesService'
 import type { PartnerData } from '@/models/user'
 import { extractInitials } from '@/lib/utils'
+import { PWAInstallButton } from '@/components/ui/pwa-install-button'
 
 export default function ConfiguracoesPage() {
     const { user, loading } = useCentralizedAppContext()
@@ -270,6 +271,73 @@ export default function ConfiguracoesPage() {
                                         </svg>
                                         Atualizar
                                     </Button>
+                                </div>
+                            </div>
+
+                            {/* Seção PWA - App Installation */}
+                            <div className="p-6">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Instalar App</h2>
+                                        <p className="text-slate-600 dark:text-slate-400">Baixe o FinTogether como aplicativo nativo</p>
+                                    </div>
+                                </div>
+
+                                <div className="p-6 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-800 shadow-sm">
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-blue-500 dark:bg-blue-600 flex items-center justify-center flex-shrink-0">
+                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg>
+                                        </div>
+                                        <div className="flex-1">
+                                            <h4 className="font-bold text-blue-900 dark:text-blue-300 text-lg mb-2">Instale como App Nativo</h4>
+                                            <p className="text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
+                                                Instale o FinTogether no seu dispositivo para ter acesso rápido, funcionar offline e uma experiência mais fluida.
+                                            </p>
+                                            
+                                            {/* Benefícios */}
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                                                <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                                                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                                    </svg>
+                                                    <span>Acesso rápido</span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                                                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                                    </svg>
+                                                    <span>Funciona offline</span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                                                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                                    </svg>
+                                                    <span>Ícone na tela inicial</span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                                                    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                                    </svg>
+                                                    <span>Experiência nativa</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Botão de instalação */}
+                                            <div className="flex items-center gap-3">
+                                                <PWAInstallButton />
+                                                <div className="text-xs text-blue-600 dark:text-blue-400">
+                                                    Disponível para Android, iOS e Desktop
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
