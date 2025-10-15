@@ -16,8 +16,15 @@ export function usePWAInstall() {
   const [canInstall, setCanInstall] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // Verificar se estamos no cliente (browser)
+    if (typeof window === 'undefined') return;
+
+    // Verificar se é iOS
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+
     // Verificar se já está instalado
     const checkIfInstalled = () => {
       // Para iOS Safari
@@ -55,9 +62,12 @@ export function usePWAInstall() {
   }, []);
 
   const installPWA = async () => {
+    // Verificar se estamos no cliente
+    if (typeof window === 'undefined') return;
+
     if (!deferredPrompt) {
       // Para iOS, mostrar instruções
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      if (isIOS) {
         alert(
           'Para instalar:\n' +
           '1. Toque no ícone de compartilhar (□↗)\n' +
@@ -91,6 +101,6 @@ export function usePWAInstall() {
     isInstalled,
     isLoading,
     installPWA,
-    isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent)
+    isIOS
   };
 }
