@@ -112,7 +112,7 @@ export function BalanceCard({
     if (isCompact) {
         return (
             <>
-                <div className="md:p-4 md:pb-2 sticky top-[72px] z-20 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:relative md:top-0 -mx-4 px-4 py-2 md:mx-0 transition-all duration-300">
+                <div className="md:p-4 md:pb-2 sticky top-[72px] z-50 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 md:relative md:top-0 -mx-4 px-4 py-2 md:mx-0 transition-all duration-300">
                     <div className="md:rounded-xl px-4 py-2.5 text-slate-900 dark:text-white relative overflow-hidden shadow-lg transition-all duration-300 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
                         <div className="relative z-10">
                             {hasCouple && (

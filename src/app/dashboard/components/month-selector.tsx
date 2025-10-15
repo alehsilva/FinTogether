@@ -146,7 +146,7 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
     }, [])
 
     return (
-        <div className="px-4 pt-2 pb-4 md:relative md:z-auto sticky top-0 z-40 bg-gradient-to-b from-slate-50 via-white to-transparent dark:from-slate-900 dark:via-slate-800 dark:to-transparent transition-colors duration-300">
+        <div className="px-4 pt-2 pb-4 md:relative md:z-auto sticky top-0 z-30 bg-gradient-to-b from-slate-50 via-white to-transparent dark:from-slate-900 dark:via-slate-800 dark:to-transparent transition-colors duration-300">
             {/* Container dos meses - design limpo */}
             <div className="relative group">
                 <div className={`bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 shadow-md border border-slate-200 dark:border-slate-700/50 overflow-hidden transition-all duration-300 ${isSwipping ? 'scale-[0.98] shadow-lg' : ''}`}>

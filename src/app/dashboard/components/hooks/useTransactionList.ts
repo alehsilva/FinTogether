@@ -55,8 +55,8 @@ export function useTransactionList({
         return () => window.removeEventListener('resize', checkIsMobile)
     }, [])
 
-    // Aplicar scroll lock quando maximizado no mobile
-    useScrollLock(isMaximized && isMobile)
+    // Aplicar scroll lock e scroll para o topo quando maximizado no mobile
+    useScrollLock(isMaximized && isMobile, true)
 
     useEffect(() => {
         return () => {

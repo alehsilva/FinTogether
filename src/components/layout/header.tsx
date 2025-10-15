@@ -17,7 +17,8 @@ import type { Partner } from '@/models/user'
 import type { AuthUser } from '@/models/auth'
 import { extractInitials } from '@/lib/utils'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { Home, ArrowLeft } from 'lucide-react'
 
 interface HeaderProps {
     user: AuthUser | null
@@ -26,8 +27,12 @@ interface HeaderProps {
 
 export function Header({ user, onSignOut }: HeaderProps) {
     const router = useRouter()
+    const pathname = usePathname()
     const { theme, setTheme } = useTheme()
     const [partner, setPartner] = useState<Partner | null>(null)
+
+    // Verificar se está na página de configurações
+    const isConfigPage = pathname === '/configuracoes'
 
     // Usar dados do casal já carregados pelo useAuth (evita query duplicada)
     useEffect(() => {
@@ -57,82 +62,20 @@ export function Header({ user, onSignOut }: HeaderProps) {
     return (
         <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-700/50 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl shadow-sm hover:shadow-md transition-all duration-300">
             <div className="flex h-16 items-center justify-between px-4 lg:px-6">
-                {/* Logo e menu mobile */}
+                {/* Logo e navegação mobile */}
                 <div className="flex items-center gap-4">
-                    {/* Menu mobile */}
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="sm" className="lg:hidden cursor-pointer">
-                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="p-0 w-64">
-                            <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
-                            <SheetDescription className="sr-only">
-                                Menu lateral com opções de navegação do aplicativo
-                            </SheetDescription>
-                            {/* Mobile sidebar content */}
-                            <div className="flex h-full w-full flex-col bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                                <div className="flex h-16 items-center gap-2 border-b border-slate-200 dark:border-slate-700/50 px-4">
-                                    <FinTogetherLogo size={32} />
-                                </div>
-
-                                {/* Menu Items */}
-                                <nav className="flex-1 p-4">
-                                    <div className="space-y-2">
-                                        <Button
-                                            variant="ghost"
-                                            className="w-full justify-start gap-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 cursor-pointer"
-                                            onClick={() => router.push('/dashboard')}
-                                        >
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-                                            </svg>
-                                            <span>Dashboard</span>
-                                        </Button>
-
-                                        <Button
-                                            variant="ghost"
-                                            className="w-full justify-start gap-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 cursor-pointer"
-                                            onClick={() => router.push('/configuracoes')}
-                                        >
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                            <span>Configurações</span>
-                                        </Button>
-                                    </div>
-                                </nav>
-
-                                {/* User info at bottom */}
-                                <div className="border-t border-slate-200 dark:border-slate-700/50 p-4 transition-colors duration-300">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <Avatar className="h-10 w-10">
-                                            <AvatarImage src={avatarUrl} alt={fullName || ''} />
-                                            <AvatarFallback className="bg-gradient-to-br from-slate-400 to-slate-500 dark:from-slate-600 dark:to-slate-700 text-white">
-                                                {initials}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">{fullName || 'Usuário'}</p>
-                                            <p className="text-xs text-slate-600 dark:text-slate-400 truncate">{user.email}</p>
-                                        </div>
-                                    </div>
-                                    <Button
-                                        variant="outline"
-                                        className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
-                                        onClick={onSignOut}
-                                    >
-                                        <span className="text-base mr-2">🚪</span>
-                                        Sair
-                                    </Button>
-                                </div>
-                            </div>
-                        </SheetContent>
-                    </Sheet>
+                    {/* Botão voltar - apenas em mobile e apenas na página de configurações */}
+                    {isConfigPage && (
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="lg:hidden cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200"
+                            onClick={() => router.push('/dashboard')}
+                            title="Voltar ao Dashboard"
+                        >
+                            <Home className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+                        </Button>
+                    )}
 
                     {/* Logo */}
                     <FinTogetherLogo size={40} />
