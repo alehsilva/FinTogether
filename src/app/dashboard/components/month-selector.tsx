@@ -21,42 +21,61 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
     const monthsRef = useRef<HTMLDivElement>(null)
     const [touchStart, setTouchStart] = useState(0)
     const [touchEnd, setTouchEnd] = useState(0)
+    const [isSwipping, setIsSwipping] = useState(false)
 
     const handleTouchStart = (e: React.TouchEvent) => {
         setTouchEnd(0)
         setTouchStart(e.targetTouches[0].clientX)
+        setIsSwipping(false)
     }
 
     const handleTouchMove = (e: React.TouchEvent) => {
         setTouchEnd(e.targetTouches[0].clientX)
+        
+        // Indicar que está fazendo swipe
+        if (touchStart) {
+            const distance = Math.abs(touchStart - e.targetTouches[0].clientX)
+            if (distance > 10) {
+                setIsSwipping(true)
+            }
+        }
     }
 
     const handleTouchEnd = () => {
         if (!touchStart || !touchEnd) return
 
         const distance = touchStart - touchEnd
-        const isLeftSwipe = distance > 50
-        const isRightSwipe = distance < -50
+        const isLeftSwipe = distance > 30 // Sensibilidade 30px
+        const isRightSwipe = distance < -30
 
         if (isLeftSwipe || isRightSwipe) {
             const currentIndex = months.findIndex(month => month === selectedMonth)
 
             if (isLeftSwipe) {
+                // Swipe para esquerda = próximo mês
                 if (currentIndex < months.length - 1) {
                     onMonthChange(months[currentIndex + 1])
                 } else {
+                    // Dezembro -> Janeiro do próximo ano
                     onYearChange(selectedYear + 1)
                     onMonthChange(months[0])
                 }
             } else if (isRightSwipe) {
+                // Swipe para direita = mês anterior
                 if (currentIndex > 0) {
                     onMonthChange(months[currentIndex - 1])
                 } else {
+                    // Janeiro -> Dezembro do ano anterior
                     onYearChange(selectedYear - 1)
                     onMonthChange(months[11])
                 }
             }
         }
+        
+        // Reset das variáveis
+        setTouchStart(0)
+        setTouchEnd(0)
+        setIsSwipping(false)
     }
 
     const scrollMonths = (direction: 'left' | 'right') => {
@@ -126,9 +145,14 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
         <div className="px-4 pt-2 pb-4 md:relative md:z-auto sticky top-0 z-40 bg-gradient-to-b from-slate-50 via-white to-transparent dark:from-slate-900 dark:via-slate-800 dark:to-transparent transition-colors duration-300">
             {/* Container dos meses - design limpo */}
             <div className="relative group">
-                <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 shadow-md border border-slate-200 dark:border-slate-700/50 overflow-hidden transition-colors duration-300">
+                <div className={`bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-3 shadow-md border border-slate-200 dark:border-slate-700/50 overflow-hidden transition-all duration-300 ${isSwipping ? 'scale-[0.98] shadow-lg' : ''}`}>
                     {/* Gradiente sutil no fundo */}
                     <div className="absolute inset-0 bg-gradient-to-r from-slate-200/40 via-slate-100/20 to-slate-200/40 dark:from-slate-800/40 dark:via-slate-700/20 dark:to-slate-800/40 transition-colors duration-300"></div>
+                    
+                    {/* Indicador de swipe */}
+                    {isSwipping && (
+                        <div className="absolute inset-0 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-2xl transition-opacity duration-200"></div>
+                    )}
 
                     {/* Setinhas para desktop - z-index maior para funcionar */}
                     <div className="hidden md:flex absolute left-1 top-1/2 -translate-y-1/2 z-30">
@@ -171,10 +195,11 @@ export function MonthSelector({ selectedMonth, selectedYear, selectedView, onMon
 
                     <div
                         ref={monthsRef}
-                        className="flex gap-3 overflow-x-auto scrollbar-hide py-2 px-2 relative z-10 md:px-12"
+                        className="flex gap-3 overflow-x-auto scrollbar-hide py-2 px-2 relative z-10 md:px-12 touch-pan-y"
                         style={{
                             scrollbarWidth: 'none',
                             msOverflowStyle: 'none',
+                            touchAction: 'pan-y pinch-zoom', // Permite scroll vertical, mas captura swipe horizontal
                         }}
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
