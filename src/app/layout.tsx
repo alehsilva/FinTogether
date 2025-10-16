@@ -114,7 +114,7 @@ export const metadata: Metadata = {
     title: 'FinTogether',
     startupImage: [
       {
-        url: '/icon-512.png',
+        url: '/icon-512x512.png',
         media: '(device-width: 768px) and (device-height: 1024px)',
       },
     ],
