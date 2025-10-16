@@ -60,5 +60,12 @@ export default withPWA({
   register: true,
   skipWaiting: true,
   sw: 'sw.js',
+  // Use a custom service worker source (injectManifest) so we can ensure
+  // the worker handles SKIP_WAITING messages and claims clients on activate.
+  // Next PWA will inject the precache manifest into this file during build.
+  // swSrc is not in the typed PWAConfig so cast to any to avoid TS error at build
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  swSrc: 'src/sw.js',
   buildExcludes: [/middleware-manifest\.json$/],
-})(nextConfig);
+} as any)(nextConfig);
