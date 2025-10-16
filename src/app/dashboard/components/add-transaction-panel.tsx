@@ -375,11 +375,11 @@ export function AddTransactionPanel({
       ? 'ring-2 ring-emerald-500/30 shadow-2xl shadow-emerald-500/20 z-40 bg-white dark:bg-slate-800 border-emerald-500'
       : 'z-30 bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 shadow-xl'
     }`
-    : 'lg:hidden fixed inset-0 z-[9999] bg-white dark:bg-slate-900 overflow-x-hidden transition-colors duration-150';
+    : 'lg:hidden fixed inset-0 z-[9999] bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-150';
 
   const contentClasses = isFixed
     ? 'h-full flex flex-col overflow-hidden'
-    : 'h-[100dvh] max-h-[100dvh] w-full overflow-y-auto overflow-x-hidden';
+    : 'h-full w-full overflow-y-auto overflow-x-hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]';
 
   return (
     <div ref={panelRef} className={containerClasses}>
