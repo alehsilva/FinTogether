@@ -229,17 +229,21 @@ body {
 @media screen and (max-width: 1023px) {
   input,
   select,
-  textarea,
-  button {
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Allow filter buttons and small UI buttons to use custom sizes */
+  button:not(.filter-button):not(.ui-small) {
     font-size: 16px !important;
   }
 }
 
 /* Ensure touch targets are at least 44px for better mobile UX */
 @media screen and (max-width: 1024px) {
-  button,
-  a,
-  [role="button"] {
+  button:not(.filter-button):not(.ui-small),
+  a:not(.filter-button):not(.ui-small),
+  [role="button"]:not(.filter-button):not(.ui-small) {
     min-height: 44px;
   }
 }
