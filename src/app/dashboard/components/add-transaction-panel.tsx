@@ -379,7 +379,7 @@ export function AddTransactionPanel({
 
   const contentClasses = isFixed
     ? 'h-full flex flex-col overflow-hidden'
-    : 'h-[calc(var(--vh,1vh)*100)] max-h-[calc(var(--vh,1vh)*100)] w-full overflow-y-auto overflow-x-hidden';
+    : 'h-[100dvh] max-h-[100dvh] w-full overflow-y-auto overflow-x-hidden';
 
   return (
     <div ref={panelRef} className={containerClasses}>
