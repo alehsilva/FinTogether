@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen-mobile relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
+    <div className="min-h-screen-mobile relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Grid animado de fundo */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] animate-[grid_20s_linear_infinite]" />
 

@@ -46,7 +46,10 @@ export function PWAPromptBanner() {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:right-4 sm:max-w-md">
+    <div
+      className="fixed left-4 right-4 z-50 sm:left-auto sm:right-4 sm:max-w-md"
+      style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
+    >
       <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 shadow-lg shadow-green-100/50">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">

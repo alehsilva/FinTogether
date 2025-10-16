@@ -66,7 +66,7 @@ export function Header({ user, onSignOut }: HeaderProps) {
   const initials = fullName ? extractInitials(fullName) : user.email?.[0]?.toUpperCase() || 'U';
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-700/50 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl shadow-sm hover:shadow-md transition-shadow duration-150">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-700/50 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl shadow-sm hover:shadow-md transition-shadow duration-150 safe-top">
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Logo e navegação mobile */}
         <div className="flex items-center gap-4">
@@ -196,11 +196,10 @@ export function Header({ user, onSignOut }: HeaderProps) {
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setTheme('light')}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-150 ${
-                    theme === 'light'
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-150 ${theme === 'light'
                       ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                       : 'border-slate-300 dark:border-slate-700/50 text-slate-700 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-800 dark:hover:text-slate-300'
-                  }`}
+                    }`}
                 >
                   <svg
                     className="w-4 h-4"
@@ -219,11 +218,10 @@ export function Header({ user, onSignOut }: HeaderProps) {
                 </button>
                 <button
                   onClick={() => setTheme('dark')}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-150 ${
-                    theme === 'dark'
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-150 ${theme === 'dark'
                       ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                       : 'border-slate-300 dark:border-slate-700/50 text-slate-700 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-800 dark:hover:text-slate-300'
-                  }`}
+                    }`}
                 >
                   <svg
                     className="w-4 h-4"
