@@ -103,9 +103,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/icon-512.png',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/icon-512x512.png',
   },
   manifest: '/manifest.json',
   appleWebApp: {
