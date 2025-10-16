@@ -2,7 +2,7 @@
 // SERVIÇO DE CONTAS - CONTA PADRÃO POR USUÁRIO
 // ===============================================
 
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase';
 
 export class AccountService {
   /**
@@ -15,9 +15,9 @@ export class AccountService {
       .select('id')
       .eq('user_id', userId)
       .eq('name', 'Conta Padrão')
-      .maybeSingle()
+      .maybeSingle();
 
-    if (!findError && existing?.id) return existing.id
+    if (!findError && existing?.id) return existing.id;
 
     // Criar conta padrão
     const { data: created, error: createError } = await supabase
@@ -34,15 +34,15 @@ export class AccountService {
         is_shared: false,
         is_active: true,
         color: '#64748B',
-        icon: 'wallet'
+        icon: 'wallet',
       })
       .select('id')
-      .single()
+      .single();
 
     if (createError || !created?.id) {
-      throw new Error(`Erro ao garantir conta padrão: ${createError?.message || 'desconhecido'}`)
+      throw new Error(`Erro ao garantir conta padrão: ${createError?.message || 'desconhecido'}`);
     }
 
-    return created.id
+    return created.id;
   }
 }

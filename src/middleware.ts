@@ -1,23 +1,23 @@
-import { updateSession } from '@/lib/supabase/middleware'
-import { NextRequest, NextResponse } from 'next/server'
+import { updateSession } from '@/lib/supabase/middleware';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname } = request.nextUrl;
 
   // Redireciona "/" para "/dashboard"
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   // Permitir acesso à página de login sem verificação
   if (pathname === '/login') {
-    return await updateSession(request)
+    return await updateSession(request);
   }
 
   // Para outras rotas, verificar autenticação
-  const response = await updateSession(request)
+  const response = await updateSession(request);
 
-  return response
+  return response;
 }
 
 export const config = {
@@ -31,4 +31,4 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-}
+};

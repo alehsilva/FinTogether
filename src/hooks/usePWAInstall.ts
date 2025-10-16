@@ -70,9 +70,9 @@ export function usePWAInstall() {
       if (isIOS) {
         alert(
           'Para instalar:\n' +
-          '1. Toque no ícone de compartilhar (□↗)\n' +
-          '2. Role para baixo\n' +
-          '3. Toque em "Adicionar à Tela de Início"'
+            '1. Toque no ícone de compartilhar (□↗)\n' +
+            '2. Role para baixo\n' +
+            '3. Toque em "Adicionar à Tela de Início"'
         );
         return;
       }
@@ -101,6 +101,6 @@ export function usePWAInstall() {
     isInstalled,
     isLoading,
     installPWA,
-    isIOS
+    isIOS,
   };
 }

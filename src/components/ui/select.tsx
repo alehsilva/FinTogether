@@ -1,43 +1,37 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import * as React from 'react';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-function Select({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
+  return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
-function SelectGroup({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Group>) {
-  return <SelectPrimitive.Group data-slot="select-group" {...props} />
+function SelectGroup({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>) {
+  return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
-function SelectValue({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />
+function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.Value>) {
+  return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
 function SelectTrigger({
   className,
-  size = "default",
+  size = 'default',
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "sm" | "default"
+  size?: 'sm' | 'default';
 }) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] duration-150 outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -47,14 +41,14 @@ function SelectTrigger({
         <ChevronDownIcon className="size-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
-  )
+  );
 }
 
 function SelectContent({
   className,
   children,
-  position = "popper",
-  align = "center",
+  position = 'popper',
+  align = 'center',
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -62,9 +56,9 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md",
-          position === "popper" &&
-          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md',
+          position === 'popper' &&
+          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className
         )}
         position={position}
@@ -74,9 +68,9 @@ function SelectContent({
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
-            position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
+            'p-1',
+            position === 'popper' &&
+            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1'
           )}
         >
           {children}
@@ -84,20 +78,17 @@ function SelectContent({
         <SelectScrollDownButton />
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
-  )
+  );
 }
 
-function SelectLabel({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Label>) {
+function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
-      className={cn("text-muted-foreground px-2 py-1.5 text-xs", className)}
+      className={cn('text-muted-foreground px-2 py-1.5 text-xs', className)}
       {...props}
     />
-  )
+  );
 }
 
 function SelectItem({
@@ -121,7 +112,7 @@ function SelectItem({
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
-  )
+  );
 }
 
 function SelectSeparator({
@@ -131,10 +122,10 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("bg-border pointer-events-none -mx-1 my-1 h-px", className)}
+      className={cn('bg-border pointer-events-none -mx-1 my-1 h-px', className)}
       {...props}
     />
-  )
+  );
 }
 
 function SelectScrollUpButton({
@@ -144,15 +135,12 @@ function SelectScrollUpButton({
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
-      className={cn(
-        "flex cursor-default items-center justify-center py-1",
-        className
-      )}
+      className={cn('flex cursor-default items-center justify-center py-1', className)}
       {...props}
     >
       <ChevronUpIcon className="size-4" />
     </SelectPrimitive.ScrollUpButton>
-  )
+  );
 }
 
 function SelectScrollDownButton({
@@ -162,34 +150,30 @@ function SelectScrollDownButton({
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"
-      className={cn(
-        "flex cursor-default items-center justify-center py-1",
-        className
-      )}
+      className={cn('flex cursor-default items-center justify-center py-1', className)}
       {...props}
     >
       <ChevronDownIcon className="size-4" />
     </SelectPrimitive.ScrollDownButton>
-  )
+  );
 }
 
 // Mobile Select Fullscreen Component
-interface MobileSelectOption { value: string; label: string; icon?: string }
+interface MobileSelectOption {
+  value: string;
+  label: string;
+  icon?: string;
+}
 interface MobileSelectProps {
-  options: MobileSelectOption[]
-  value: string
-  onValueChange: (value: string) => void
-  placeholder: string
+  options: MobileSelectOption[];
+  value: string;
+  onValueChange: (value: string) => void;
+  placeholder: string;
 }
 
-function MobileSelectFullscreen({
-  options,
-  value,
-  onValueChange,
-  placeholder
-}: MobileSelectProps) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const selectedOption = options.find(opt => opt.value === value)
+function MobileSelectFullscreen({ options, value, onValueChange, placeholder }: MobileSelectProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const selectedOption = options.find(opt => opt.value === value);
 
   return (
     <>
@@ -197,69 +181,78 @@ function MobileSelectFullscreen({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-2 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none flex items-center justify-between lg:hidden transition-colors duration-200"
+        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 text-base text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none flex items-center justify-between lg:hidden transition-colors duration-150"
       >
-        <span className={cn(
-          "flex items-center gap-2",
-          selectedOption ? 'text-slate-800 dark:text-white' : 'text-slate-400 dark:text-slate-500'
-        )}>
+        <span
+          className={cn(
+            'flex items-center gap-2',
+            selectedOption ? 'text-slate-800 dark:text-white' : 'text-slate-400 dark:text-slate-500'
+          )}
+        >
           {selectedOption?.icon && (
-            <span className="inline-block w-4 text-center">{selectedOption.icon}</span>
+            <span className="inline-block w-5 text-center text-lg">{selectedOption.icon}</span>
           )}
           <span>{selectedOption ? selectedOption.label : placeholder}</span>
         </span>
-        <ChevronDownIcon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+        <ChevronDownIcon className="w-5 h-5 text-slate-500 dark:text-slate-400" />
       </button>
 
       {/* Fullscreen Modal - tematizado */}
       {isOpen && (
         <div className="fixed inset-0 z-[10000] bg-white dark:bg-slate-800 lg:hidden">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
+          <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
             <h3 className="text-lg font-semibold text-slate-800 dark:text-white">{placeholder}</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors duration-150"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
 
           {/* Options List */}
           <div className="flex-1 overflow-y-auto">
-            {options.map((option) => (
+            {options.map(option => (
               <button
                 key={option.value}
                 onClick={() => {
-                  onValueChange(option.value)
-                  setIsOpen(false)
+                  onValueChange(option.value);
+                  setIsOpen(false);
                 }}
                 className={cn(
-                  "w-full text-left px-4 py-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors",
-                  value === option.value ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300'
+                  'w-full text-left px-4 py-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-150 text-base',
+                  value === option.value
+                    ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-medium'
+                    : 'text-slate-600 dark:text-slate-300'
                 )}
               >
-                <span className="flex items-center gap-2">
-                  {option.icon ? <span className="inline-block w-4 text-center">{option.icon}</span> : null}
+                <span className="flex items-center gap-3">
+                  {option.icon ? (
+                    <span className="inline-block w-5 text-center text-lg">{option.icon}</span>
+                  ) : null}
                   <span>{option.label}</span>
                 </span>
-                {value === option.value && (
-                  <CheckIcon className="w-5 h-5 text-emerald-500" />
-                )}
+                {value === option.value && <CheckIcon className="w-5 h-5 text-emerald-500" />}
               </button>
             ))}
           </div>
         </div>
       )}
     </>
-  )
+  );
 }
 
 function CustomSelect({ options, value, onValueChange, placeholder }: MobileSelectProps) {
   // Filtrar opções vazias para o Radix UI
-  const validOptions = options.filter(option => option.value !== "")
+  const validOptions = options.filter(option => option.value !== '');
 
   return (
     <div className="relative">
@@ -273,19 +266,21 @@ function CustomSelect({ options, value, onValueChange, placeholder }: MobileSele
 
       {/* Desktop: Select Radix UI com estilo customizado */}
       <div className="hidden lg:block">
-        <Select value={value || ""} onValueChange={onValueChange}>
-          <SelectTrigger className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-2 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none hover:bg-slate-50 dark:hover:bg-slate-700 data-[placeholder]:text-slate-400 dark:data-[placeholder]:text-slate-500 transition-colors duration-200">
+        <Select value={value || ''} onValueChange={onValueChange}>
+          <SelectTrigger className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-2 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none hover:bg-slate-50 dark:hover:bg-slate-700 data-[placeholder]:text-slate-400 dark:data-[placeholder]:text-slate-500 transition-colors duration-150">
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded shadow-lg">
-            {validOptions.map((option) => (
+            {validOptions.map(option => (
               <SelectItem
                 key={option.value}
                 value={option.value}
                 className="text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 focus:bg-slate-100 dark:focus:bg-slate-700 focus:text-slate-900 dark:focus:text-white cursor-pointer"
               >
                 <span className="flex items-center gap-2">
-                  {option.icon ? <span className="inline-block w-4 text-center">{option.icon}</span> : null}
+                  {option.icon ? (
+                    <span className="inline-block w-4 text-center">{option.icon}</span>
+                  ) : null}
                   <span>{option.label}</span>
                 </span>
               </SelectItem>
@@ -294,7 +289,7 @@ function CustomSelect({ options, value, onValueChange, placeholder }: MobileSele
         </Select>
       </div>
     </div>
-  )
+  );
 }
 
 export {
@@ -310,4 +305,4 @@ export {
   SelectValue,
   CustomSelect,
   MobileSelectFullscreen,
-}
+};

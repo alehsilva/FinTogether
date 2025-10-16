@@ -1,199 +1,170 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Biome: Check",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"check"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Biome: Check and Fix",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"check:fix"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Biome: Format",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"format"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": false
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Biome: Lint",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"lint"
-			],
-			"group": {
-				"kind": "test",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Biome: Lint and Fix",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"lint:fix"
-			],
-			"group": {
-				"kind": "test",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "TypeScript: Type Check",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"type-check"
-			],
-			"group": {
-				"kind": "test",
-				"isDefault": false
-			},
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": [
-				"$tsc"
-			]
-		},
-		{
-			"label": "Next.js: Dev",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"dev"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "dedicated",
-				"showReuseMessage": false,
-				"clear": true
-			},
-			"problemMatcher": {
-				"owner": "nextjs",
-				"pattern": [
-					{
-						"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error)\\s+(.*)$",
-						"file": 1,
-						"line": 2,
-						"column": 3,
-						"severity": 4,
-						"message": 5
-					}
-				],
-				"background": {
-					"activeOnStart": true,
-					"beginsPattern": ".*Local:.*",
-					"endsPattern": ".*ready.*"
-				}
-			}
-		},
-		{
-			"label": "TypeScript: Type Check",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"type-check"
-			],
-			"group": "test"
-		},
-		{
-			"label": "TypeScript: Type Check",
-			"type": "shell",
-			"command": "npm",
-			"args": [
-				"run",
-				"type-check"
-			],
-			"group": "test"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Biome: Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "check"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Biome: Check and Fix",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "check:fix"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Biome: Format",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "format"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Biome: Lint",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "lint"],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Biome: Lint and Fix",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "lint:fix"],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "TypeScript: Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "type-check"],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Next.js: Dev",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dev"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "problemMatcher": {
+        "owner": "nextjs",
+        "pattern": [
+          {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error)\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*Local:.*",
+          "endsPattern": ".*ready.*"
+        }
+      }
+    },
+    {
+      "label": "TypeScript: Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "type-check"],
+      "group": "test"
+    },
+    {
+      "label": "TypeScript: Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "type-check"],
+      "group": "test"
+    }
+  ]
 }

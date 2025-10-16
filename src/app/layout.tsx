@@ -16,7 +16,14 @@ const ibmPlexSans = IBM_Plex_Sans({
   weight: ['400', '500', '600', '700'],
   preload: true,
   adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  fallback: [
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'sans-serif',
+  ],
 });
 
 // IBM Plex Mono - Perfeita para valores monetários
@@ -48,8 +55,17 @@ export const metadata: Metadata = {
     default: 'FinTogether - Controle Financeiro para Casais',
     template: '%s | FinTogether',
   },
-  description: 'Gerencie suas finanças em casal de forma simples e organizada. Controle receitas, despesas e metas financeiras juntos.',
-  keywords: ['finanças', 'casais', 'controle financeiro', 'orçamento', 'despesas', 'receitas', 'gestão financeira'],
+  description:
+    'Gerencie suas finanças em casal de forma simples e organizada. Controle receitas, despesas e metas financeiras juntos.',
+  keywords: [
+    'finanças',
+    'casais',
+    'controle financeiro',
+    'orçamento',
+    'despesas',
+    'receitas',
+    'gestão financeira',
+  ],
   authors: [{ name: 'FinTogether' }],
   creator: 'FinTogether',
   publisher: 'FinTogether',
@@ -106,8 +122,8 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
+    maximumScale: 1,
+    userScalable: false,
     viewportFit: 'cover',
   },
   applicationName: 'FinTogether',
@@ -148,7 +164,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${poppins.variable} font-sans antialiased`}>
+      <body
+        className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} ${poppins.variable} font-sans antialiased`}
+      >
         <ThemeProvider>
           <QueryProvider>
             {children}

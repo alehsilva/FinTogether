@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { useCentralizedAppContext } from '@/hooks/useCentralizedAppContext'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { extractInitials } from '@/lib/utils'
+import { useCentralizedAppContext } from '@/hooks/useCentralizedAppContext';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { extractInitials } from '@/lib/utils';
 
 export function UserProfile() {
-  const { user, loading, signOut } = useCentralizedAppContext()
+  const { user, loading, signOut } = useCentralizedAppContext();
 
   if (loading) {
     return (
@@ -22,24 +22,27 @@ export function UserProfile() {
           </div>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   if (!user) {
-    return null
+    return null;
   }
 
-  const userMetadata = user.user_metadata || {}
-  const avatarUrl = userMetadata.avatar_url
-  const fullName = userMetadata.full_name || userMetadata.name
-  const initials = fullName ? extractInitials(fullName) : (user.email?.[0]?.toUpperCase() || 'U')
+  const userMetadata = user.user_metadata || {};
+  const avatarUrl = userMetadata.avatar_url;
+  const fullName = userMetadata.full_name || userMetadata.name;
+  const initials = fullName ? extractInitials(fullName) : user.email?.[0]?.toUpperCase() || 'U';
 
   return (
     <Card className="w-full max-w-md mx-auto shadow-xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl">Meu Perfil</CardTitle>
-          <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+          <Badge
+            variant="secondary"
+            className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200"
+          >
             🟢 Online
           </Badge>
         </div>
@@ -59,9 +62,7 @@ export function UserProfile() {
             <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
               {fullName || 'Usuário'}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {user.email}
-            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
           </div>
         </div>
 
@@ -78,7 +79,7 @@ export function UserProfile() {
 
           <div className="flex justify-between items-center py-2">
             <span className="text-sm text-gray-600 dark:text-gray-400">Verificado</span>
-            <Badge variant={user.email_confirmed_at ? "default" : "secondary"}>
+            <Badge variant={user.email_confirmed_at ? 'default' : 'secondary'}>
               {user.email_confirmed_at ? '✅ Sim' : '⏳ Pendente'}
             </Badge>
           </div>
@@ -88,8 +89,7 @@ export function UserProfile() {
             <span className="text-sm text-gray-900 dark:text-white">
               {user.last_sign_in_at
                 ? new Date(user.last_sign_in_at).toLocaleDateString('pt-BR')
-                : 'Agora'
-              }
+                : 'Agora'}
             </span>
           </div>
         </div>
@@ -103,7 +103,7 @@ export function UserProfile() {
             className="w-full justify-start"
             onClick={() => {
               // Aqui você pode adicionar lógica para editar perfil
-              console.log('Editar perfil')
+              console.log('Editar perfil');
             }}
           >
             <span className="mr-2">✏️</span>
@@ -131,5 +131,5 @@ export function UserProfile() {
         </details>
       </CardContent>
     </Card>
-  )
+  );
 }

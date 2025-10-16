@@ -1,44 +1,37 @@
-'use client'
+'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react'
-import { useCentralizedAppContext } from '@/hooks/useCentralizedAppContext'
-import type { Transaction } from '@/models/financial'
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { useCentralizedAppContext } from '@/hooks/useCentralizedAppContext';
+import type { Transaction } from '@/models/financial';
 import {
     BalanceCard,
     MonthSelector,
     FloatingButton,
     TransactionList,
     ChartsSection,
-    AddTransactionPanel
-} from '@/app/dashboard/components'
+    AddTransactionPanel,
+} from '@/app/dashboard/components';
 
 export default function DashboardPage() {
-    const [showAddTransaction, setShowAddTransaction] = useState(false)
-    const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
+    const [showAddTransaction, setShowAddTransaction] = useState(false);
+    const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
 
-    // Inicializar do localStorage se existir
     const [isTransactionListMaximized, setIsTransactionListMaximized] = useState(() => {
         if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('fintogetherTransactionListMaximized')
-            return saved === 'true'
+            const saved = localStorage.getItem('fintogetherTransactionListMaximized');
+            return saved === 'true';
         }
-        return false
-    })
+        return false;
+    });
 
-    // Ref para manter o estado persistente durante re-renders
-    const maximizedStateRef = useRef(isTransactionListMaximized)
-
-    // Função estável para atualizar o estado de maximização
+    const maximizedStateRef = useRef(isTransactionListMaximized);
     const handleMaximizedChange = useCallback((newValue: boolean) => {
-        maximizedStateRef.current = newValue
-        setIsTransactionListMaximized(newValue)
-        // Persistir no localStorage
+        maximizedStateRef.current = newValue;
+        setIsTransactionListMaximized(newValue);
         if (typeof window !== 'undefined') {
-            localStorage.setItem('fintogetherTransactionListMaximized', String(newValue))
+            localStorage.setItem('fintogetherTransactionListMaximized', String(newValue));
         }
-    }, [])
-
-    // USAR CONTEXTO EM VEZ DO HOOK DIRETO PARA EVITAR DUPLICAÇÃO
+    }, []);
     const {
         user,
         loading,
@@ -60,36 +53,29 @@ export default function DashboardPage() {
         onRefresh,
         isCreating,
         isUpdating,
-        error
-    } = useCentralizedAppContext()
+        error,
+    } = useCentralizedAppContext();
 
-    // Garantir que o estado de maximização seja mantido quando mês/ano muda
     useEffect(() => {
-        // Se o ref indica que deveria estar maximizado, mas o state não está, corrigir
         if (maximizedStateRef.current && !isTransactionListMaximized) {
-            setIsTransactionListMaximized(true)
+            setIsTransactionListMaximized(true);
         }
-    }, [selectedMonth, selectedYear, loading, isTransactionListMaximized])
+    }, [selectedMonth, selectedYear, loading, isTransactionListMaximized]);
 
-    // Callback para quando uma transação for criada
     const handleTransactionCreated = async () => {
-        await onRefresh() // Atualizar dados
-        setShowAddTransaction(false) // Fechar modal mobile
-        setEditingTransaction(null) // Limpar estado de edição
-    }
+        await onRefresh();
+        setShowAddTransaction(false);
+        setEditingTransaction(null);
+    };
 
-    // Callback para editar transação
     const handleEditTransaction = (transaction: Transaction) => {
-        setEditingTransaction(transaction)
+        setEditingTransaction(transaction);
 
-        // Mobile: Abrir modal
-        // Desktop: Apenas popular o painel lateral (já visível)
-        if (window.innerWidth < 1024) { // lg breakpoint
-            setShowAddTransaction(true)
+        if (window.innerWidth < 1024) {
+            setShowAddTransaction(true);
         }
-    }
+    };
 
-    // Se não há usuário, o DashboardLayout já cuida de mostrar a tela de login
     if (!user) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -98,15 +84,13 @@ export default function DashboardPage() {
                     <p className="text-slate-600">Carregando dashboard...</p>
                 </div>
             </div>
-        )
+        );
     }
 
     return (
         <>
-            {/* Layout Fullscreen Mobile quando lista maximizada */}
             {isTransactionListMaximized && (
                 <div className="lg:hidden fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-                    {/* Month Selector fixo no topo */}
                     <div className="flex-shrink-0">
                         <MonthSelector
                             selectedMonth={selectedMonth}
@@ -118,7 +102,6 @@ export default function DashboardPage() {
                         />
                     </div>
 
-                    {/* Balance Card compacto */}
                     <div className="flex-shrink-0">
                         <BalanceCard
                             selectedView={selectedView}
@@ -132,7 +115,6 @@ export default function DashboardPage() {
                         />
                     </div>
 
-                    {/* Lista de transações expansível */}
                     <div className="flex-1 overflow-hidden">
                         <TransactionList
                             selectedView={selectedView}
@@ -146,10 +128,13 @@ export default function DashboardPage() {
                             partnerEmail={user?.partnerEmail}
                             isMaximized={isTransactionListMaximized}
                             onMaximizedChange={handleMaximizedChange}
+                            selectedMonth={selectedMonth}
+                            selectedYear={selectedYear}
+                            onMonthChange={onMonthChange}
+                            onYearChange={onYearChange}
                         />
                     </div>
 
-                    {/* Botão Flutuante para adicionar transação */}
                     <div className="flex-shrink-0">
                         <FloatingButton
                             selectedView={selectedView}
@@ -159,25 +144,24 @@ export default function DashboardPage() {
                 </div>
             )}
 
-            {/* Layout Normal */}
-            <div className={`relative flex flex-col lg:flex-row h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-300 ${isTransactionListMaximized ? 'hidden lg:flex' : ''}`}>
-                {/* Background decorativo sutil */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-
-                {/* Main Content - Dashboard com scroll */}
-                <div className={`flex-1 flex flex-col w-full overflow-hidden transition-all duration-500 relative ${editingTransaction ? 'lg:brightness-50 lg:contrast-75' : ''
-                    }`}>
-                    {/* Overlay para desktop quando editando */}
+            <div
+                className={`relative flex flex-col lg:flex-row h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-150 ${isTransactionListMaximized ? 'hidden lg:flex' : ''}`}
+            >
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-100 dark:opacity-0" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-0 dark:opacity-100" />
+                <div
+                    className={`flex-1 flex flex-col w-full overflow-hidden transition-all duration-150 relative lg:pr-80 ${editingTransaction ? 'lg:brightness-50 lg:contrast-75' : ''
+                        }`}
+                >
                     {editingTransaction && (
                         <div
                             data-overlay="editing"
-                            className="hidden lg:block absolute inset-0 bg-black/20 z-10 transition-opacity duration-500 cursor-pointer"
+                            className="hidden lg:block absolute inset-0 bg-black/20 z-10 transition-opacity duration-150 cursor-pointer"
                             onClick={() => setEditingTransaction(null)}
                             title="Clique para cancelar edição"
                         />
                     )}
-                    {/* Dashboard Content with scroll */}
-                    <div className="h-full overflow-y-auto overflow-x-hidden">{/* Month Navigation */}
+                    <div className="h-full overflow-y-auto overflow-x-hidden">
                         <MonthSelector
                             selectedMonth={selectedMonth}
                             selectedYear={selectedYear}
@@ -187,7 +171,6 @@ export default function DashboardPage() {
                             summary={summary}
                         />
 
-                        {/* Balance Card */}
                         <BalanceCard
                             selectedView={selectedView}
                             selectedMonth={selectedMonth}
@@ -199,11 +182,12 @@ export default function DashboardPage() {
                             isCompact={isTransactionListMaximized}
                         />
 
-                        {/* Content Area */}
                         <div className="px-4 pb-20 lg:pb-4">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                {/* Left Column - Transactions */}
-                                <div className="flex flex-col gap-4">
+                            {/* Layout: Transações à esquerda (compacta), Charts à direita (maior espaço) */}
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+                                {/* Transaction List - Lado esquerdo expandido */}
+                                <div className="lg:col-span-5 flex flex-col">
                                     <TransactionList
                                         selectedView={selectedView}
                                         transactions={transactions}
@@ -216,11 +200,15 @@ export default function DashboardPage() {
                                         partnerEmail={user?.partnerEmail}
                                         isMaximized={isTransactionListMaximized}
                                         onMaximizedChange={handleMaximizedChange}
+                                        selectedMonth={selectedMonth}
+                                        selectedYear={selectedYear}
+                                        onMonthChange={onMonthChange}
+                                        onYearChange={onYearChange}
                                     />
                                 </div>
 
-                                {/* Right Column - Charts */}
-                                <div className="flex flex-col gap-4">
+                                {/* Charts Section - Lateral direita */}
+                                <div className="lg:col-span-7 flex flex-col gap-4">
                                     <ChartsSection
                                         selectedView={selectedView}
                                         summary={summary}
@@ -228,6 +216,8 @@ export default function DashboardPage() {
                                         transactions={transactions}
                                         currentUserId={user?.id}
                                         partnerEmail={user?.partnerEmail}
+                                        selectedMonth={selectedMonth}
+                                        selectedYear={selectedYear}
                                     />
                                 </div>
                             </div>
@@ -235,13 +225,12 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Right Panel - Add Transaction (Painel Fixo Desktop) */}
                 <AddTransactionPanel
                     key={editingTransaction?.id ? `desktop-${editingTransaction.id}` : 'desktop-new'}
                     isOpen={true}
                     isFixed={true}
                     onClose={() => {
-                        setEditingTransaction(null)
+                        setEditingTransaction(null);
                     }}
                     onTransactionAdded={handleTransactionCreated}
                     onCreateTransaction={onCreateTransaction}
@@ -254,14 +243,13 @@ export default function DashboardPage() {
                 />
             </div>
 
-            {/* Modal para Mobile */}
             <AddTransactionPanel
                 key={editingTransaction?.id ? `mobile-${editingTransaction.id}` : 'mobile-new'}
                 isOpen={showAddTransaction}
                 isFixed={false}
                 onClose={() => {
-                    setShowAddTransaction(false)
-                    setEditingTransaction(null)
+                    setShowAddTransaction(false);
+                    setEditingTransaction(null);
                 }}
                 onTransactionAdded={handleTransactionCreated}
                 onCreateTransaction={onCreateTransaction}
@@ -273,14 +261,12 @@ export default function DashboardPage() {
                 editingTransaction={editingTransaction}
             />
 
-            {/* Botão Flutuante Mobile */}
             <FloatingButton
                 selectedView={selectedView}
                 onClick={() => setShowAddTransaction(true)}
                 summary={summary}
             />
 
-            {/* Overlay para mobile */}
             {showAddTransaction && (
                 <div
                     className="lg:hidden fixed inset-0 bg-black/50 z-40"
@@ -288,5 +274,5 @@ export default function DashboardPage() {
                 />
             )}
         </>
-    )
+    );
 }

@@ -1,33 +1,33 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
-import { TransactionTypeService } from '@/services/transactionTypeService'
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { TransactionTypeService } from '@/services/transactionTypeService';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    const supabase = await createClient();
 
     // Verificar se o usuário está autenticado
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 })
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
     // Processar regras recorrentes para o usuário atual
-    const result = await TransactionTypeService.processRecurringRules(user.id)
+    const result = await TransactionTypeService.processRecurringRules(user.id);
 
     return NextResponse.json({
       success: true,
       message: `${result.processed} transações recorrentes processadas`,
       processed: result.processed,
-      errors: result.errors
-    })
+      errors: result.errors,
+    });
   } catch (error) {
-    console.error('Erro ao processar transações recorrentes:', error)
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    )
+    console.error('Erro ao processar transações recorrentes:', error);
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }
 
@@ -35,26 +35,23 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Verificar se é uma chamada autorizada (pode adicionar verificação de API key)
-    const authHeader = request.headers.get('authorization')
+    const authHeader = request.headers.get('authorization');
 
     if (!authHeader || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 })
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
     // Processar todas as regras recorrentes
-    const result = await TransactionTypeService.processRecurringRules()
+    const result = await TransactionTypeService.processRecurringRules();
 
     return NextResponse.json({
       success: true,
       message: `${result.processed} transações recorrentes processadas`,
       processed: result.processed,
-      errors: result.errors
-    })
+      errors: result.errors,
+    });
   } catch (error) {
-    console.error('Erro ao processar transações recorrentes:', error)
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    )
+    console.error('Erro ao processar transações recorrentes:', error);
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

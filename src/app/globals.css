@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -120,19 +120,27 @@
     @apply border-border;
   }
 
+  html {
+    color-scheme: light dark;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "tnum" 1;
+    font-feature-settings:
+      'kern' 1,
+      'liga' 1,
+      'calt' 1,
+      'tnum' 1;
     font-variant-numeric: tabular-nums lining-nums;
   }
 
-  button:disabled, [disabled] {
+  button:disabled,
+  [disabled] {
     cursor: not-allowed;
     opacity: 0.6;
   }
 }
 
-/* Hide scrollbar for month selector */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -142,7 +150,6 @@
   display: none;
 }
 
-/* Custom global scrollbar styles */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
@@ -178,10 +185,9 @@
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
-
-
 /* Prevent horizontal overflow globally */
-html, body {
+html,
+body {
   overflow-x: hidden;
   max-width: 100vw;
 }
@@ -190,9 +196,37 @@ html, body {
   box-sizing: border-box;
 }
 
+/* Prevent zoom on input focus in mobile browsers */
+input,
+select,
+textarea,
+button {
+  font-size: 16px !important;
+}
+
+/* Responsive font sizes for mobile */
+@media screen and (max-width: 1024px) {
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px !important;
+  }
+}
+
+/* Ensure touch targets are at least 44px for better mobile UX */
+@media screen and (max-width: 1024px) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+  }
+}
+
 /* Animações customizadas para a tela de login */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) rotate(0deg);
   }
   33% {
@@ -214,7 +248,8 @@ html, body {
 
 /* Animação para a barra de loading */
 @keyframes loading {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-100%);
   }
   50% {
@@ -232,5 +267,3 @@ html, body {
   min-height: 100vh; /* Fallback */
   min-height: calc(var(--vh, 1vh) * 100);
 }
-
-

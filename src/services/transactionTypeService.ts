@@ -1,9 +1,9 @@
 // Serviço para tipos de transações especiais
 
-import type { TransactionForm, RecurringRule } from '@/models/financial'
-import { TransactionService } from './transactionService'
-import { supabase } from '../lib/supabase'
-import { getLocalDateString, parseLocalDate } from '@/lib/utils'
+import type { TransactionForm, RecurringRule } from '@/models/financial';
+import { TransactionService } from './transactionService';
+import { supabase } from '../lib/supabase';
+import { getLocalDateString, parseLocalDate } from '@/lib/utils';
 
 export class TransactionTypeService {
   /**
@@ -12,16 +12,16 @@ export class TransactionTypeService {
   static async createTypedTransaction(userId: string, transactionData: TransactionForm) {
     switch (transactionData.special_type) {
       case 'simples':
-        return this.createSimpleTransaction(userId, transactionData)
+        return this.createSimpleTransaction(userId, transactionData);
 
       case 'parcela':
-        return this.createInstallmentTransaction(userId, transactionData)
+        return this.createInstallmentTransaction(userId, transactionData);
 
       case 'assinado':
-        return this.createRecurringTransaction(userId, transactionData)
+        return this.createRecurringTransaction(userId, transactionData);
 
       default:
-        throw new Error('Tipo de transação não suportado')
+        throw new Error('Tipo de transação não suportado');
     }
   }
 
@@ -33,27 +33,27 @@ export class TransactionTypeService {
       ...data,
       special_type: 'simples',
       installments: 1,
-      installment_number: 1
-    })
+      installment_number: 1,
+    });
   }
 
   /**
    * Criar transação parcelada (BATCH INSERT para performance)
    */
   private static async createInstallmentTransaction(userId: string, data: TransactionForm) {
-    const installments = data.installments || 1
-    const installmentAmount = data.amount / installments
+    const installments = data.installments || 1;
+    const installmentAmount = data.amount / installments;
 
     // Preparar todas as parcelas em batch
-    const batchData = []
-    const today = getLocalDateString()
+    const batchData = [];
+    const today = getLocalDateString();
 
     for (let i = 1; i <= installments; i++) {
-      const installmentDate = parseLocalDate(data.transaction_date)
-      installmentDate.setMonth(installmentDate.getMonth() + (i - 1))
+      const installmentDate = parseLocalDate(data.transaction_date);
+      installmentDate.setMonth(installmentDate.getMonth() + (i - 1));
 
-      const dateString = getLocalDateString(installmentDate)
-      const isFuture = dateString > today
+      const dateString = getLocalDateString(installmentDate);
+      const isFuture = dateString > today;
 
       batchData.push({
         user_id: userId,
@@ -67,19 +67,19 @@ export class TransactionTypeService {
         special_type: 'parcela',
         installments,
         installment_number: i,
-        status: isFuture ? 'pending' : 'completed' // Futuras pending, passadas/hoje completed
-      })
+        status: isFuture ? 'pending' : 'completed', // Futuras pending, passadas/hoje completed
+      });
     }
 
     // Insert em batch (muito mais rápido)
     const { data: transactions, error } = await supabase
       .from('transactions')
       .insert(batchData)
-      .select()
+      .select();
 
-    if (error) throw new Error(`Erro ao criar parcelas: ${error.message}`)
+    if (error) throw new Error(`Erro ao criar parcelas: ${error.message}`);
 
-    return { installments: transactions, total: installments, installmentAmount }
+    return { installments: transactions, total: installments, installmentAmount };
   }
 
   /**
@@ -87,27 +87,35 @@ export class TransactionTypeService {
    */
   private static async createRecurringTransaction(userId: string, data: TransactionForm) {
     // Criar regra de recorrência primeiro
-    const recurringRule = await this.createRecurringRule(userId, data)
+    const recurringRule = await this.createRecurringRule(userId, data);
 
-    const frequency = data.recurring_frequency || 'monthly'
-    const numberOfOccurrences = 12 // 1 ano
+    const frequency = data.recurring_frequency || 'monthly';
+    const numberOfOccurrences = 12; // 1 ano
 
     // Preparar todas as transações em batch
-    const batchData = []
-    const today = getLocalDateString()
+    const batchData = [];
+    const today = getLocalDateString();
 
     for (let i = 0; i < numberOfOccurrences; i++) {
-      const transactionDate = parseLocalDate(data.transaction_date)
+      const transactionDate = parseLocalDate(data.transaction_date);
 
       switch (frequency) {
-        case 'daily': transactionDate.setDate(transactionDate.getDate() + i); break
-        case 'weekly': transactionDate.setDate(transactionDate.getDate() + (i * 7)); break
-        case 'monthly': transactionDate.setMonth(transactionDate.getMonth() + i); break
-        case 'yearly': transactionDate.setFullYear(transactionDate.getFullYear() + i); break
+        case 'daily':
+          transactionDate.setDate(transactionDate.getDate() + i);
+          break;
+        case 'weekly':
+          transactionDate.setDate(transactionDate.getDate() + i * 7);
+          break;
+        case 'monthly':
+          transactionDate.setMonth(transactionDate.getMonth() + i);
+          break;
+        case 'yearly':
+          transactionDate.setFullYear(transactionDate.getFullYear() + i);
+          break;
       }
 
-      const dateString = getLocalDateString(transactionDate)
-      const isFuture = dateString > today
+      const dateString = getLocalDateString(transactionDate);
+      const isFuture = dateString > today;
 
       batchData.push({
         user_id: userId,
@@ -120,31 +128,34 @@ export class TransactionTypeService {
         transaction_date: dateString,
         special_type: 'assinado',
         recurring_rule_id: recurringRule.id,
-        status: isFuture ? 'pending' : 'completed' // Futuras pending, passadas/hoje completed
-      })
+        status: isFuture ? 'pending' : 'completed', // Futuras pending, passadas/hoje completed
+      });
     }
 
     // Insert em batch (muito mais rápido)
     const { data: transactions, error } = await supabase
       .from('transactions')
       .insert(batchData)
-      .select()
+      .select();
 
-    if (error) throw new Error(`Erro ao criar recorrências: ${error.message}`)
+    if (error) throw new Error(`Erro ao criar recorrências: ${error.message}`);
 
-    return { transactions, recurringRule, total: numberOfOccurrences }
+    return { transactions, recurringRule, total: numberOfOccurrences };
   }
 
   /**
    * Criar regra de recorrência
    */
-  private static async createRecurringRule(userId: string, data: TransactionForm): Promise<RecurringRule> {
+  private static async createRecurringRule(
+    userId: string,
+    data: TransactionForm
+  ): Promise<RecurringRule> {
     // Para a nova lógica, a regra é apenas para controle - as transações já foram criadas
-    const frequency = data.recurring_frequency || 'monthly'
+    const frequency = data.recurring_frequency || 'monthly';
 
     // Calcular próxima data (1 ano à frente, já que criamos 12 meses)
-    const nextExecutionDate = parseLocalDate(data.transaction_date)
-    nextExecutionDate.setFullYear(nextExecutionDate.getFullYear() + 1)
+    const nextExecutionDate = parseLocalDate(data.transaction_date);
+    nextExecutionDate.setFullYear(nextExecutionDate.getFullYear() + 1);
 
     const { data: rule, error } = await supabase
       .from('recurring_rules')
@@ -166,40 +177,40 @@ export class TransactionTypeService {
         start_date: data.transaction_date,
         next_execution_date: getLocalDateString(nextExecutionDate),
         execution_count: 12, // Já criamos 12 transações
-        is_active: true
+        is_active: true,
       })
       .select()
-      .single()
+      .single();
 
     if (error) {
-      throw new Error(`Erro ao criar regra de recorrência: ${error.message}`)
+      throw new Error(`Erro ao criar regra de recorrência: ${error.message}`);
     }
 
-    return rule as RecurringRule
+    return rule as RecurringRule;
   }
 
   /**
    * Calcular próxima data de execução
    */
   private static calculateNextExecutionDate(currentDate: Date, frequency: string): string {
-    const nextDate = new Date(currentDate)
+    const nextDate = new Date(currentDate);
 
     switch (frequency) {
       case 'daily':
-        nextDate.setDate(nextDate.getDate() + 1)
-        break
+        nextDate.setDate(nextDate.getDate() + 1);
+        break;
       case 'weekly':
-        nextDate.setDate(nextDate.getDate() + 7)
-        break
+        nextDate.setDate(nextDate.getDate() + 7);
+        break;
       case 'monthly':
-        nextDate.setMonth(nextDate.getMonth() + 1)
-        break
+        nextDate.setMonth(nextDate.getMonth() + 1);
+        break;
       case 'yearly':
-        nextDate.setFullYear(nextDate.getFullYear() + 1)
-        break
+        nextDate.setFullYear(nextDate.getFullYear() + 1);
+        break;
     }
 
-    return getLocalDateString(nextDate) // Retorna apenas a data (YYYY-MM-DD)
+    return getLocalDateString(nextDate); // Retorna apenas a data (YYYY-MM-DD)
   }
 
   /**
@@ -208,15 +219,15 @@ export class TransactionTypeService {
   private static getFrequencyLabel(frequency: string, index: number): string {
     switch (frequency) {
       case 'daily':
-        return `Dia ${index + 1}`
+        return `Dia ${index + 1}`;
       case 'weekly':
-        return `Semana ${index + 1}`
+        return `Semana ${index + 1}`;
       case 'monthly':
-        return `Mês ${index + 1}`
+        return `Mês ${index + 1}`;
       case 'yearly':
-        return `Ano ${index + 1}`
+        return `Ano ${index + 1}`;
       default:
-        return `Ocorrência ${index + 1}`
+        return `Ocorrência ${index + 1}`;
     }
   }
 
@@ -229,39 +240,42 @@ export class TransactionTypeService {
       .update({ is_active: isActive, updated_at: new Date().toISOString() })
       .eq('id', ruleId)
       .select()
-      .single()
+      .single();
 
     if (error) {
-      throw new Error(`Erro ao atualizar regra: ${error.message}`)
+      throw new Error(`Erro ao atualizar regra: ${error.message}`);
     }
 
-    return data
+    return data;
   }
-
-
 
   /**
    * Processar regras (simplificado - já criamos em batch)
    */
-  static async processRecurringRules(userId?: string): Promise<{ processed: number; errors: any[] }> {
+  static async processRecurringRules(
+    userId?: string
+  ): Promise<{ processed: number; errors: any[] }> {
     // Como criamos todas as transações em batch, só precisamos verificar regras expiradas
     const { data: expiredRules, error } = await supabase
       .from('recurring_rules')
       .select('id')
       .eq('is_active', true)
-      .lt('next_execution_date', getLocalDateString())
+      .lt('next_execution_date', getLocalDateString());
 
-    if (error) return { processed: 0, errors: [error] }
+    if (error) return { processed: 0, errors: [error] };
 
     // Desativar regras expiradas (performance otimizada)
     if (expiredRules?.length > 0) {
       await supabase
         .from('recurring_rules')
         .update({ is_active: false })
-        .in('id', expiredRules.map(r => r.id))
+        .in(
+          'id',
+          expiredRules.map(r => r.id)
+        );
     }
 
-    return { processed: expiredRules?.length || 0, errors: [] }
+    return { processed: expiredRules?.length || 0, errors: [] };
   }
 
   /**
@@ -278,32 +292,32 @@ export class TransactionTypeService {
       .select('*, recurring_rule_id, special_type, installments')
       .eq('id', transactionId)
       .eq('user_id', userId)
-      .single()
+      .single();
 
     if (error || !transaction) {
-      throw new Error('Transação não encontrada')
+      throw new Error('Transação não encontrada');
     }
 
     // Se for simples, sempre excluir apenas ela
     if (transaction.special_type === 'simples') {
-      return TransactionService.deleteTransaction(transactionId, userId)
+      return TransactionService.deleteTransaction(transactionId, userId);
     }
 
     // Se escolheu excluir apenas uma
     if (deleteOption === 'single') {
-      return TransactionService.deleteTransaction(transactionId, userId)
+      return TransactionService.deleteTransaction(transactionId, userId);
     }
 
     // Se escolheu excluir todas
     if (deleteOption === 'all') {
       if (transaction.special_type === 'parcela') {
-        return this.deleteAllInstallments(userId, transaction)
+        return this.deleteAllInstallments(userId, transaction);
       } else if (transaction.special_type === 'assinado') {
-        return this.deleteAllRecurring(userId, transaction)
+        return this.deleteAllRecurring(userId, transaction);
       }
     }
 
-    throw new Error('Opção de exclusão inválida')
+    throw new Error('Opção de exclusão inválida');
   }
 
   /**
@@ -316,13 +330,13 @@ export class TransactionTypeService {
       .eq('user_id', userId)
       .eq('special_type', 'parcela')
       .eq('installments', transaction.installments)
-      .ilike('title', `${transaction.title.split('(')[0].trim()}%`)
+      .ilike('title', `${transaction.title.split('(')[0].trim()}%`);
 
     if (error) {
-      throw new Error(`Erro ao excluir parcelas: ${error.message}`)
+      throw new Error(`Erro ao excluir parcelas: ${error.message}`);
     }
 
-    return { success: true, message: 'Todas as parcelas foram excluídas' }
+    return { success: true, message: 'Todas as parcelas foram excluídas' };
   }
 
   /**
@@ -334,10 +348,10 @@ export class TransactionTypeService {
       .from('transactions')
       .delete()
       .eq('user_id', userId)
-      .eq('recurring_rule_id', transaction.recurring_rule_id)
+      .eq('recurring_rule_id', transaction.recurring_rule_id);
 
     if (deleteTransactionsError) {
-      throw new Error(`Erro ao excluir recorrências: ${deleteTransactionsError.message}`)
+      throw new Error(`Erro ao excluir recorrências: ${deleteTransactionsError.message}`);
     }
 
     // Excluir a regra de recorrência
@@ -345,40 +359,41 @@ export class TransactionTypeService {
       .from('recurring_rules')
       .delete()
       .eq('id', transaction.recurring_rule_id)
-      .eq('user_id', userId)
+      .eq('user_id', userId);
 
     if (deleteRuleError) {
-      throw new Error(`Erro ao excluir regra: ${deleteRuleError.message}`)
+      throw new Error(`Erro ao excluir regra: ${deleteRuleError.message}`);
     }
 
-    return { success: true, message: 'Toda a série de recorrências foi excluída' }
+    return { success: true, message: 'Toda a série de recorrências foi excluída' };
   }
 
   /**
    * Verificar se transação precisa de modal de exclusão
    */
-  static async needsDeleteModal(transactionId: string, userId: string): Promise<{
-    needsModal: boolean
-    type: 'simples' | 'parcela' | 'assinado'
-    title: string
+  static async needsDeleteModal(
+    transactionId: string,
+    userId: string
+  ): Promise<{
+    needsModal: boolean;
+    type: 'simples' | 'parcela' | 'assinado';
+    title: string;
   }> {
     const { data: transaction, error } = await supabase
       .from('transactions')
       .select('special_type, title')
       .eq('id', transactionId)
       .eq('user_id', userId)
-      .single()
+      .single();
 
     if (error || !transaction) {
-      throw new Error('Transação não encontrada')
+      throw new Error('Transação não encontrada');
     }
 
     return {
       needsModal: transaction.special_type !== 'simples',
       type: transaction.special_type,
-      title: transaction.title
-    }
+      title: transaction.title,
+    };
   }
-
-
 }

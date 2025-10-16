@@ -1,10 +1,10 @@
-import { createServerClient } from '@supabase/ssr'
-import { NextRequest, NextResponse } from 'next/server'
+import { createServerClient } from '@supabase/ssr';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const updateSession = async (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({
     request,
-  })
+  });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,20 +12,20 @@ export const updateSession = async (request: NextRequest) => {
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll()
+          return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set(name, value)
-            supabaseResponse.cookies.set(name, value, options)
-          })
+            request.cookies.set(name, value);
+            supabaseResponse.cookies.set(name, value, options);
+          });
         },
       },
     }
-  )
+  );
 
   // Refreshing the auth token
-  await supabase.auth.getUser()
+  await supabase.auth.getUser();
 
-  return supabaseResponse
-}
+  return supabaseResponse;
+};

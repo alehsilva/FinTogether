@@ -3,18 +3,14 @@ import '../globals.css';
 import { QueryProvider } from '@/lib/query-client';
 
 export const metadata: Metadata = {
-    title: 'Login - FinTogether',
-    description: 'Entre na sua conta FinTogether',
+  title: 'Login - FinTogether',
+  description: 'Entre na sua conta FinTogether',
 };
 
 export default function LoginLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <QueryProvider>
-            {children}
-        </QueryProvider>
-    );
+  return <QueryProvider>{children}</QueryProvider>;
 }
