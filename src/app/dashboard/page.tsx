@@ -145,7 +145,7 @@ export default function DashboardPage() {
             )}
 
             <div
-                className={`relative flex flex-col lg:flex-row h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-150 ${isTransactionListMaximized ? 'hidden lg:flex' : ''}`}
+                className={`relative flex flex-col lg:flex-row h-full min-h-screen-mobile bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden transition-colors duration-150 ${isTransactionListMaximized ? 'hidden lg:flex' : ''}`}
             >
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-100 dark:opacity-0" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-0 dark:opacity-100" />

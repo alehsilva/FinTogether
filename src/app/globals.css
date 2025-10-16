@@ -146,6 +146,13 @@
     body {
       min-height: -webkit-fill-available;
     }
+
+    /* Next.js root div */
+    body > div:first-child {
+      min-height: -webkit-fill-available;
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   button:disabled,
@@ -211,9 +218,6 @@ body {
   html,
   body {
     overscroll-behavior: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
   }
 }
 
@@ -334,7 +338,7 @@ body {
     height: 100vh !important;
     min-height: 100vh !important;
   }
-  
+
   /* iOS PWA: Remove espaço em branco no rodapé */
   @supports (-webkit-touch-callout: none) {
     html,
@@ -342,12 +346,18 @@ body {
       height: 100% !important;
       min-height: 100% !important;
     }
-    
+
+    body {
+      background: var(--background);
+    }
+
     .h-screen-mobile {
+      height: 100vh !important;
       height: -webkit-fill-available !important;
     }
-    
+
     .min-h-screen-mobile {
+      min-height: 100vh !important;
       min-height: -webkit-fill-available !important;
     }
   }

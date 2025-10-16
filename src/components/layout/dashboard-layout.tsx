@@ -39,7 +39,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <Header user={user} onSignOut={signOut} />
 
         {/* Main content */}
-        <main className="flex-1 relative overflow-hidden">{children}</main>
+        <main className="flex-1 relative overflow-hidden min-h-0">{children}</main>
       </div>
     </div>
   );
