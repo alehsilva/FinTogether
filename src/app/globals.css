@@ -122,6 +122,7 @@
 
   html {
     color-scheme: light dark;
+    height: 100%;
   }
 
   body {
@@ -132,6 +133,19 @@
       'calt' 1,
       'tnum' 1;
     font-variant-numeric: tabular-nums;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  /* iOS específico: Preencher altura disponível */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      height: -webkit-fill-available;
+    }
+
+    body {
+      min-height: -webkit-fill-available;
+    }
   }
 
   button:disabled,
@@ -271,6 +285,17 @@ body {
   min-height: 100dvh; /* Dynamic Viewport Height - melhor para mobile */
 }
 
+/* iOS específico: Garante que não haja espaço em branco */
+@supports (-webkit-touch-callout: none) {
+  .h-screen-mobile {
+    height: -webkit-fill-available;
+  }
+
+  .min-h-screen-mobile {
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* Safe area utilities para iPhone com notch */
 .safe-top {
   padding-top: env(safe-area-inset-top);
@@ -308,5 +333,22 @@ body {
   .min-h-screen-mobile {
     height: 100vh !important;
     min-height: 100vh !important;
+  }
+  
+  /* iOS PWA: Remove espaço em branco no rodapé */
+  @supports (-webkit-touch-callout: none) {
+    html,
+    body {
+      height: 100% !important;
+      min-height: 100% !important;
+    }
+    
+    .h-screen-mobile {
+      height: -webkit-fill-available !important;
+    }
+    
+    .min-h-screen-mobile {
+      min-height: -webkit-fill-available !important;
+    }
   }
 }

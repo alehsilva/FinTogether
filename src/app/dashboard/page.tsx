@@ -90,7 +90,7 @@ export default function DashboardPage() {
     return (
         <>
             {isTransactionListMaximized && (
-                <div className="lg:hidden fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+                <div className="lg:hidden fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 h-screen-mobile">
                     <div className="flex-shrink-0">
                         <MonthSelector
                             selectedMonth={selectedMonth}
