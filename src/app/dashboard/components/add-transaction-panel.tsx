@@ -202,7 +202,8 @@ export function AddTransactionPanel({
 
         setTimeout(() => setEditingReady(true), 200);
       }
-    } else if (!editingTransaction) {
+    } else if (!editingTransaction && lastEditingTransactionId !== null) {
+      // Só reseta quando sai do modo de edição (tinha uma transação sendo editada)
       setLastEditingTransactionId(null);
       setEditingReady(false);
       const defaultCategoryId = getDefaultCategoryId();
@@ -233,16 +234,22 @@ export function AddTransactionPanel({
     activeTab,
   ]);
 
+  // Atualiza apenas a categoria quando muda de tab (mantém todos os outros campos)
   useEffect(() => {
     if (!editingTransaction && categories.length > 0) {
-      const defaultCategoryId = getDefaultCategoryId();
-      setValue('categoria', defaultCategoryId || '');
-      trigger('categoria');
+      const currentCategory = getValues('categoria');
+      const categoryExists = categories.some(
+        cat => cat.id === currentCategory && cat.type === effectiveTab
+      );
 
-      setSelectedTransactionType('simples');
-      setValue('special_type', 'simples');
+      // Se a categoria atual não é compatível com o tipo selecionado, troca para a padrão
+      if (!categoryExists) {
+        const defaultCategoryId = getDefaultCategoryId();
+        setValue('categoria', defaultCategoryId || '');
+        trigger('categoria');
+      }
     }
-  }, [activeTab, editingTransaction, setValue, trigger, categories]);
+  }, [activeTab, editingTransaction, setValue, trigger, categories, effectiveTab, getValues]);
 
   const handleClose = () => {
     const defaultCategoryId = getDefaultCategoryId();

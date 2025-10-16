@@ -50,8 +50,8 @@ export function TransactionCalendar({
 
   return (
     <div className="mx-0 lg:mx-4 mt-4 lg:mt-2 transition-all duration-150">
-      {/* Versão Mobile - Input de Data Simples */}
-      <div className="block lg:hidden px-4">
+      {/* Versão Mobile e Monitores Menores - Input de Data Simples */}
+      <div className="block 2xl:hidden px-4">
         <div>
           <label className="block text-slate-700 dark:text-slate-300 text-sm font-medium mb-1.5">
             DATA
@@ -65,8 +65,8 @@ export function TransactionCalendar({
         </div>
       </div>
 
-      {/* Versão Desktop Completa */}
-      <div className="hidden lg:block bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/40 dark:to-slate-900/40 rounded-lg overflow-x-hidden border border-slate-200 dark:border-slate-700/30 backdrop-blur-sm shadow-md p-3">
+      {/* Versão Desktop com Tela Grande - Calendário Completo */}
+      <div className="hidden 2xl:block bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/40 dark:to-slate-900/40 rounded-lg overflow-x-hidden border border-slate-200 dark:border-slate-700/30 backdrop-blur-sm shadow-md p-3">
         <div className="mb-2">
           <div className="flex items-center justify-between text-sm mb-2">
             <Button
@@ -139,10 +139,10 @@ export function TransactionCalendar({
                     onDateSelect(new Date(calendarDate.getFullYear(), calendarDate.getMonth(), day))
                   }
                   className={`h-7 w-7 lg:h-7 lg:w-7 rounded-lg text-xs font-semibold transition-all duration-150 ${isSelectedDate(day)
-                      ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 shadow-md shadow-emerald-500/30 scale-105 ring-1 ring-emerald-400/30'
-                      : isToday(day)
-                        ? 'bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 dark:from-emerald-500/30 dark:to-emerald-600/20 text-emerald-700 dark:text-emerald-300 hover:from-emerald-500/30 hover:to-emerald-600/20 dark:hover:from-emerald-500/40 dark:hover:to-emerald-600/30 border border-emerald-500/40 dark:border-emerald-500/60'
-                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 hover:text-slate-900 dark:hover:text-white hover:scale-105 active:scale-95'
+                    ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 shadow-md shadow-emerald-500/30 scale-105 ring-1 ring-emerald-400/30'
+                    : isToday(day)
+                      ? 'bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 dark:from-emerald-500/30 dark:to-emerald-600/20 text-emerald-700 dark:text-emerald-300 hover:from-emerald-500/30 hover:to-emerald-600/20 dark:hover:from-emerald-500/40 dark:hover:to-emerald-600/30 border border-emerald-500/40 dark:border-emerald-500/60'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 hover:text-slate-900 dark:hover:text-white hover:scale-105 active:scale-95'
                     }`}
                 >
                   {day}

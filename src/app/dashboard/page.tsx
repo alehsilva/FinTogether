@@ -182,7 +182,7 @@ export default function DashboardPage() {
                             isCompact={isTransactionListMaximized}
                         />
 
-                        <div className="px-4 pb-20 lg:pb-4">
+                        <div className="px-4 pb-20 lg:pb-6">
                             {/* Layout: Transações à esquerda (compacta), Charts à direita (maior espaço) */}
                             <div className={`grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 ${editingTransaction ? 'lg:grid-cols-8 md:grid-cols-1' : ''}`}>
 

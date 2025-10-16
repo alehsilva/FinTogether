@@ -219,7 +219,7 @@ function MobileSelectFullscreen({ options, value, onValueChange, placeholder }: 
           </div>
 
           {/* Options List */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto overscroll-contain" style={{ maxHeight: 'calc(100vh - 64px)' }}>
             {options.map(option => (
               <button
                 key={option.value}
