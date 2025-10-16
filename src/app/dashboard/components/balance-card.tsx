@@ -138,41 +138,39 @@ export function BalanceCard({
                   <Button
                     size="sm"
                     onClick={() => onViewChange('nosso')}
-                    className={`text-xs font-medium px-3 py-1 rounded-sm transition-all duration-150 cursor-pointer h-6 ${
-                      selectedView === 'nosso'
-                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 scale-105'
-                        : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
-                    }`}
+                    className={`text-xs font-medium px-3 py-1 rounded-sm transition-all duration-150 cursor-pointer h-6 ${selectedView === 'nosso'
+                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 scale-105'
+                      : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
+                      }`}
                   >
                     NOSSO
                   </Button>
                   <Button
                     size="sm"
                     onClick={() => onViewChange('meu')}
-                    className={`text-xs font-medium px-3 py-1 rounded-sm transition-all duration-150 cursor-pointer h-6 ${
-                      selectedView === 'meu'
-                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 scale-105'
-                        : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
-                    }`}
+                    className={`text-xs font-medium px-3 py-1 rounded-sm transition-all duration-150 cursor-pointer h-6 ${selectedView === 'meu'
+                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30 scale-105'
+                      : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
+                      }`}
                   >
                     MEU
                   </Button>
                 </div>
               )}
 
-              <div className="flex items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-150">
+              <div className="flex items-start justify-between gap-1.5 animate-in fade-in slide-in-from-bottom-2 duration-150">
                 <div
                   className="flex-1 cursor-pointer active:scale-95 transition-transform duration-150"
                   onDoubleClick={copyBalanceToClipboard}
                   title="Clique duas vezes para copiar"
                 >
-                  <p className="text-[10px] opacity-80 font-semibold tracking-wide mb-0.5">
+                  <p className="text-[9px] opacity-80 font-semibold tracking-wide mb-0.5">
                     SALDO ATUAL
                   </p>
-                  <p className="text-xl font-bold leading-tight flex items-center gap-1">
-                    {getBalance()}
+                  <p className="text-[11px] sm:text-base font-bold leading-tight flex items-center gap-0.5 break-words max-w-full">
+                    <span className="break-all line-clamp-2">{getBalance()}</span>
                     <svg
-                      className="w-3 h-3 opacity-50"
+                      className="w-2 h-2 opacity-50 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -187,12 +185,12 @@ export function BalanceCard({
                   </p>
                 </div>
 
-                <div className="text-right">
-                  <p className="text-[10px] opacity-80 font-semibold tracking-wide mb-0.5">
-                    SALDO PREVISTO
+                <div className="text-right flex-1">
+                  <p className="text-[9px] opacity-80 font-semibold tracking-wide mb-0.5">
+                    PREVISTO
                   </p>
                   <p
-                    className={`text-lg font-bold leading-tight ${(() => {
+                    className={`text-[10px] sm:text-sm font-bold leading-tight break-all line-clamp-2 ${(() => {
                       if (loading) return 'opacity-90';
                       const projectedBalance = getProjectedBalance();
                       if (projectedBalance.includes('-')) return 'text-rose-600 dark:text-rose-300';
@@ -228,11 +226,10 @@ export function BalanceCard({
                     <Button
                       size="sm"
                       onClick={() => onViewChange('nosso')}
-                      className={`text-xs font-medium px-2 py-0.5 rounded-sm transition-all duration-150 cursor-pointer h-6 min-w-0 flex items-center gap-1 ${
-                        selectedView === 'nosso'
-                          ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
-                          : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
-                      }`}
+                      className={`text-xs font-medium px-2 py-0.5 rounded-sm transition-all duration-150 cursor-pointer h-6 min-w-0 flex items-center gap-1 ${selectedView === 'nosso'
+                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                        : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
+                        }`}
                     >
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
@@ -242,11 +239,10 @@ export function BalanceCard({
                     <Button
                       size="sm"
                       onClick={() => onViewChange('meu')}
-                      className={`text-xs font-medium px-2 py-0.5 rounded-sm transition-all duration-150 cursor-pointer h-6 min-w-0 flex items-center gap-1 ${
-                        selectedView === 'meu'
-                          ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
-                          : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
-                      }`}
+                      className={`text-xs font-medium px-2 py-0.5 rounded-sm transition-all duration-150 cursor-pointer h-6 min-w-0 flex items-center gap-1 ${selectedView === 'meu'
+                        ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                        : 'bg-slate-300/70 dark:bg-slate-700/50 text-slate-800 dark:text-slate-300 hover:bg-slate-400/70 dark:hover:bg-slate-700 backdrop-blur-sm'
+                        }`}
                     >
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path
@@ -288,7 +284,7 @@ export function BalanceCard({
                   <h2 className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 tracking-wider">
                     SALDO DISPONÍVEL
                   </h2>
-                  <h1 className="text-2xl text-slate-600 sm:text-3xl font-bold tracking-tight mt-1 dark:text-slate-300">
+                  <h1 className="text-lg sm:text-xl lg:text-2xl text-slate-600 font-bold tracking-tight mt-1 dark:text-slate-300 break-all line-clamp-2">
                     {loading ? (
                       <span className="animate-pulse bg-slate-700/20 dark:bg-white/20 rounded-md h-8 w-32 inline-block"></span>
                     ) : (
@@ -301,7 +297,7 @@ export function BalanceCard({
                     SALDO PREVISTO
                   </h2>
                   <h1
-                    className={`text-2xl sm:text-3xl font-bold tracking-tight mt-1 ${(() => {
+                    className={`text-lg sm:text-xl lg:text-2xl font-bold tracking-tight mt-1 break-all line-clamp-2 ${(() => {
                       if (loading) return 'opacity-90';
                       const projectedBalance = getProjectedBalance();
                       if (projectedBalance.includes('-'))
