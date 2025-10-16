@@ -301,6 +301,12 @@ export function useCentralizedApp() {
     let projectedIncome = 0;
     let projectedExpenses = 0;
 
+    // Valores apenas do mês atual (para mostrar no balance card)
+    let monthlyIncome = 0;
+    let monthlyExpenses = 0;
+    let monthlyProjectedIncome = 0;
+    let monthlyProjectedExpenses = 0;
+
     // Para saldo disponível: usar transações completed ATÉ o mês selecionado (acumulativo)
     filteredTransactions.forEach((tx: Transaction) => {
       if (tx.type === 'transferencia') return;
@@ -314,6 +320,9 @@ export function useCentralizedApp() {
       const isUpToSelectedMonth =
         txYear < selectedYear || (txYear === selectedYear && txMonthNumber <= selectedMonthNumber);
 
+      // Verificar se é especificamente do mês selecionado
+      const isCurrentMonth = txYear === selectedYear && txMonthNumber === selectedMonthNumber;
+
       if (!isUpToSelectedMonth) return;
 
       const amount = Number(tx.amount) || 0;
@@ -322,6 +331,18 @@ export function useCentralizedApp() {
       if (tx.status === 'completed') {
         if (tx.type === 'receita') income += amount;
         else if (tx.type === 'despesa') expenses += amount;
+
+        // Valores do mês atual (apenas completed)
+        if (isCurrentMonth) {
+          if (tx.type === 'receita') monthlyIncome += amount;
+          else if (tx.type === 'despesa') monthlyExpenses += amount;
+        }
+      }
+
+      // Valores projetados do mês atual (completed + pending)
+      if (isCurrentMonth && (tx.status === 'completed' || tx.status === 'pending')) {
+        if (tx.type === 'receita') monthlyProjectedIncome += amount;
+        else if (tx.type === 'despesa') monthlyProjectedExpenses += amount;
       }
     });
 
@@ -354,17 +375,17 @@ export function useCentralizedApp() {
 
     const summary: FinancialSummary = {
       individual_balance: selectedView === 'meu' ? balance : 0,
-      individual_income: selectedView === 'meu' ? income : 0,
-      individual_expenses: selectedView === 'meu' ? expenses : 0,
+      individual_income: selectedView === 'meu' ? monthlyIncome : 0, // Mudou: valores mensais
+      individual_expenses: selectedView === 'meu' ? monthlyExpenses : 0, // Mudou: valores mensais
       couple_balance: selectedView === 'nosso' ? balance : 0,
-      couple_income: selectedView === 'nosso' ? income : 0,
-      couple_expenses: selectedView === 'nosso' ? expenses : 0,
+      couple_income: selectedView === 'nosso' ? monthlyIncome : 0, // Mudou: valores mensais
+      couple_expenses: selectedView === 'nosso' ? monthlyExpenses : 0, // Mudou: valores mensais
       total_balance: balance,
-      total_income: income,
-      total_expenses: expenses,
+      total_income: monthlyIncome, // Mudou: valores mensais
+      total_expenses: monthlyExpenses, // Mudou: valores mensais
       user1_balance: balance,
-      user1_income: income,
-      user1_expenses: expenses,
+      user1_income: monthlyIncome, // Mudou: valores mensais
+      user1_expenses: monthlyExpenses, // Mudou: valores mensais
       user2_balance: 0,
       user2_income: 0,
       user2_expenses: 0,
@@ -376,14 +397,14 @@ export function useCentralizedApp() {
       period: selectedMonth,
       // Novos campos para saldo previsto
       projected_balance: projectedBalance,
-      projected_income: projectedIncome,
-      projected_expenses: projectedExpenses,
+      projected_income: monthlyProjectedIncome, // Mudou: valores mensais projetados
+      projected_expenses: monthlyProjectedExpenses, // Mudou: valores mensais projetados
       individual_projected_balance: selectedView === 'meu' ? projectedBalance : 0,
-      individual_projected_income: selectedView === 'meu' ? projectedIncome : 0,
-      individual_projected_expenses: selectedView === 'meu' ? projectedExpenses : 0,
+      individual_projected_income: selectedView === 'meu' ? monthlyProjectedIncome : 0, // Mudou: valores mensais projetados
+      individual_projected_expenses: selectedView === 'meu' ? monthlyProjectedExpenses : 0, // Mudou: valores mensais projetados
       couple_projected_balance: selectedView === 'nosso' ? projectedBalance : 0,
-      couple_projected_income: selectedView === 'nosso' ? projectedIncome : 0,
-      couple_projected_expenses: selectedView === 'nosso' ? projectedExpenses : 0,
+      couple_projected_income: selectedView === 'nosso' ? monthlyProjectedIncome : 0, // Mudou: valores mensais projetados
+      couple_projected_expenses: selectedView === 'nosso' ? monthlyProjectedExpenses : 0, // Mudou: valores mensais projetados
     };
 
     return {
