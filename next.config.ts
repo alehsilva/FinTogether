@@ -50,6 +50,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
 };
 
 // Configuração do PWA

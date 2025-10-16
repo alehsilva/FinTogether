@@ -184,10 +184,10 @@ export default function DashboardPage() {
 
                         <div className="px-4 pb-20 lg:pb-4">
                             {/* Layout: Transações à esquerda (compacta), Charts à direita (maior espaço) */}
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                            <div className={`grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 ${editingTransaction ? 'lg:grid-cols-8 md:grid-cols-1' : ''}`}>
 
-                                {/* Transaction List - Lado esquerdo expandido */}
-                                <div className="lg:col-span-5 flex flex-col">
+                                {/* Transaction List - Ocupa toda a largura em telas pequenas quando addTransaction está ativo */}
+                                <div className={`md:col-span-12 lg:col-span-12 xl:col-span-6 flex flex-col ${editingTransaction ? 'lg:col-span-8 md:col-span-6' : ''}`}>
                                     <TransactionList
                                         selectedView={selectedView}
                                         transactions={transactions}
@@ -207,19 +207,21 @@ export default function DashboardPage() {
                                     />
                                 </div>
 
-                                {/* Charts Section - Lateral direita */}
-                                <div className="lg:col-span-7 flex flex-col gap-4">
-                                    <ChartsSection
-                                        selectedView={selectedView}
-                                        summary={summary}
-                                        loading={loading}
-                                        transactions={transactions}
-                                        currentUserId={user?.id}
-                                        partnerEmail={user?.partnerEmail}
-                                        selectedMonth={selectedMonth}
-                                        selectedYear={selectedYear}
-                                    />
-                                </div>
+                                {/* Charts Section - Ocupa mais espaço em telas médias */}
+                                {!editingTransaction && (
+                                    <div className="md:col-span-12 lg:col-span-12 xl:col-span-6 flex flex-col gap-4">
+                                        <ChartsSection
+                                            selectedView={selectedView}
+                                            summary={summary}
+                                            loading={loading}
+                                            transactions={transactions}
+                                            currentUserId={user?.id}
+                                            partnerEmail={user?.partnerEmail}
+                                            selectedMonth={selectedMonth}
+                                            selectedYear={selectedYear}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

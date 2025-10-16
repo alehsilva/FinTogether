@@ -197,15 +197,7 @@ body {
 }
 
 /* Prevent zoom on input focus in mobile browsers */
-input,
-select,
-textarea,
-button {
-  font-size: 16px !important;
-}
-
-/* Responsive font sizes for mobile */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
   input,
   select,
   textarea,

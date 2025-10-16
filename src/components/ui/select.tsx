@@ -181,7 +181,7 @@ function MobileSelectFullscreen({ options, value, onValueChange, placeholder }: 
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 text-base text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none flex items-center justify-between lg:hidden transition-colors duration-150"
+        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 lg:py-2.5 text-base lg:text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none flex items-center justify-between lg:hidden transition-colors duration-150"
       >
         <span
           className={cn(
@@ -267,7 +267,7 @@ function CustomSelect({ options, value, onValueChange, placeholder }: MobileSele
       {/* Desktop: Select Radix UI com estilo customizado */}
       <div className="hidden lg:block">
         <Select value={value || ''} onValueChange={onValueChange}>
-          <SelectTrigger className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-2 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none hover:bg-slate-50 dark:hover:bg-slate-700 data-[placeholder]:text-slate-400 dark:data-[placeholder]:text-slate-500 transition-colors duration-150">
+          <SelectTrigger className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded px-3 py-3 lg:py-2.5 text-base lg:text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:outline-none hover:bg-slate-50 dark:hover:bg-slate-700 data-[placeholder]:text-slate-400 dark:data-[placeholder]:text-slate-500 transition-colors duration-150">
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded shadow-lg">

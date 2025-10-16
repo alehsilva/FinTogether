@@ -52,7 +52,7 @@ export const TransactionFormFields = memo(function TransactionFormFields({
                 value={field.value ?? ''}
                 onChange={e => field.onChange(formatters.maskCurrency(e.target.value))}
                 placeholder="0,00"
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg pl-12 pr-4 py-3 text-base text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-150"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg pl-12 pr-4 py-3 lg:py-2.5 text-base lg:text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-150"
                 aria-invalid={!!errors.valor}
               />
             </div>
@@ -78,7 +78,7 @@ export const TransactionFormFields = memo(function TransactionFormFields({
               {...field}
               type="text"
               placeholder="Digite o título"
-              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 text-base text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-150"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 lg:py-2.5 text-base lg:text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-500 focus:border-emerald-500 dark:focus:border-emerald-500 focus:outline-none transition-colors duration-150"
             />
           )}
         />
@@ -223,7 +223,7 @@ export const TransactionFormFields = memo(function TransactionFormFields({
                 min="2"
                 max="60"
                 placeholder="Nº parcelas"
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 text-base text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-500 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none transition-colors duration-150"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg px-4 py-3 lg:py-2.5 text-base lg:text-sm text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-500 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none transition-colors duration-150"
                 onChange={e => field.onChange(parseInt(e.target.value))}
               />
             )}

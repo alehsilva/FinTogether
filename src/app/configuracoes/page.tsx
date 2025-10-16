@@ -281,113 +281,6 @@ export default function ConfiguracoesPage() {
                 </div>
               </div>
 
-              {/* Seção PWA */}
-              <div className="p-4 sm:p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                      Instalar App
-                    </h2>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      Baixe o FinTogether como aplicativo nativo
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-800 shadow-sm">
-                  <div className="flex flex-col sm:flex-row items-start gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500 dark:bg-blue-600 flex items-center justify-center flex-shrink-0">
-                      <svg
-                        className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-blue-900 dark:text-blue-300 text-base sm:text-lg mb-2">
-                        Instale como App Nativo
-                      </h4>
-                      <p className="text-sm sm:text-base text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
-                        Instale o FinTogether no seu dispositivo para ter acesso rápido, funcionar
-                        offline e uma experiência mais fluida.
-                      </p>
-
-                      {/* Benefícios */}
-                      <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
-                        <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
-                          <svg
-                            className="w-4 h-4 flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                          </svg>
-                          <span>Acesso rápido</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
-                          <svg
-                            className="w-4 h-4 flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                          </svg>
-                          <span>Funciona offline</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
-                          <svg
-                            className="w-4 h-4 flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                          </svg>
-                          <span>Ícone na tela inicial</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
-                          <svg
-                            className="w-4 h-4 flex-shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                          </svg>
-                          <span>Experiência nativa</span>
-                        </div>
-                      </div>
-
-                      {/* Botão de instalação */}
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                        <PWAInstallButton />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               {/* Seção de Pareamento */}
               <div className="p-4 sm:p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -564,7 +457,7 @@ export default function ConfiguracoesPage() {
                           Digite o email do(a) seu(sua) parceiro(a) para enviar um convite de
                           pareamento.
                         </p>
-                        <div className="flex gap-3">
+                        <div className="flex flex-col sm:flex-row gap-3">
                           <Input
                             id="partner-email"
                             type="email"
@@ -585,20 +478,7 @@ export default function ConfiguracoesPage() {
                               </div>
                             ) : (
                               <div className="flex items-center gap-2">
-                                <svg
-                                  className="w-4 h-4"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                  />
-                                </svg>
-                                Enviar Convite
+                                Convidar
                               </div>
                             )}
                           </Button>
@@ -650,6 +530,113 @@ export default function ConfiguracoesPage() {
               </div>
             </div>
           </CardContent>
+        </Card>
+
+        {/* Seção PWA */}
+        <Card className="p-4 bg-gradient-to-br mt-2 from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 sm:p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                Instalar App
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                Baixe o FinTogether como aplicativo nativo
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-800 shadow-sm">
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500 dark:bg-blue-600 flex items-center justify-center flex-shrink-0">
+                <svg
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-bold text-blue-900 dark:text-blue-300 text-base sm:text-lg mb-2">
+                  Instale como App Nativo
+                </h4>
+                <p className="text-sm sm:text-base text-blue-800 dark:text-blue-400 leading-relaxed mb-4">
+                  Instale o FinTogether no seu dispositivo para ter acesso rápido, funcionar
+                  offline e uma experiência mais fluida.
+                </p>
+
+                {/* Benefícios */}
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                    <svg
+                      className="w-4 h-4 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                    </svg>
+                    <span>Acesso rápido</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                    <svg
+                      className="w-4 h-4 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                    </svg>
+                    <span>Funciona offline</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                    <svg
+                      className="w-4 h-4 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                    </svg>
+                    <span>Ícone na tela inicial</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
+                    <svg
+                      className="w-4 h-4 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                    </svg>
+                    <span>Experiência nativa</span>
+                  </div>
+                </div>
+
+                {/* Botão de instalação */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <PWAInstallButton />
+                </div>
+              </div>
+            </div>
+          </div>
         </Card>
       </div>
     </div>

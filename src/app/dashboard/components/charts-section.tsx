@@ -195,7 +195,7 @@ export function ChartsSection({
   return (
     <div className="flex flex-col gap-4">
       {/* Receitas e Despesas - Lado a lado no topo */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="lg:grid-cols-2 gap-4">
         {/* Card de Receitas */}
         <ReceitasCard
           valor={receitas.valor}

@@ -371,7 +371,7 @@ export function AddTransactionPanel({
   if (!isFixed && !isOpen) return null;
 
   const containerClasses = isFixed
-    ? `fixed top-0 right-0 bottom-0 w-80 min-w-80 max-w-80 transition-all duration-150 border-l-2 hidden lg:block ${editingTransaction
+    ? `fixed top-18 right-0 bottom-0 w-80 min-w-80 max-w-80 transition-all duration-150 border-l-2 hidden lg:block ${editingTransaction
       ? 'ring-2 ring-emerald-500/30 shadow-2xl shadow-emerald-500/20 z-40 bg-white dark:bg-slate-800 border-emerald-500'
       : 'z-30 bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 shadow-xl'
     }`

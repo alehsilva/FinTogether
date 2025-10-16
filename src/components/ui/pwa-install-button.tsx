@@ -12,7 +12,7 @@ export function PWAInstallButton() {
     return (
       <div className="flex items-center gap-2 text-sm text-green-600">
         <Check className="w-4 h-4" />
-        <span className="hidden sm:inline">App Instalado</span>
+        <span className="sm:inline">App Instalado</span>
       </div>
     );
   }
