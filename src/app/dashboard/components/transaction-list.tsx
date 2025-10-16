@@ -152,7 +152,7 @@ export function TransactionList({
           <div className="flex items-center gap-2 mb-3">
             <h3 className="text-sm font-semibold flex-1 text-slate-900 dark:text-slate-100 transition-colors duration-150">
               {showSearchInput ? (
-                <span className="sm:hidden text-emerald-600 dark:text-emerald-400">Buscando transações</span>
+                <span className="text-emerald-600 dark:text-emerald-400">Buscando transações</span>
               ) : (
                 <>Últimas Transações{' '}
                   {filteredTransactions.length > 0 && `(${filteredTransactions.length})`}</>
