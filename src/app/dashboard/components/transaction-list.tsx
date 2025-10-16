@@ -229,15 +229,15 @@ export function TransactionList({
           )}
 
           <div className="flex items-center justify-between gap-2 w-full">
-            {/* FILTER BUTTONS */}
+            {/* FILTER BUTTONS - No mobile esconde quando busca ativa, no desktop sempre visível */}
             <div
-              className={`flex items-center bg-slate-200/50 dark:bg-slate-700/30 rounded-full flex-shrink min-w-0 transition-all duration-200
-      ${showSearchInput ? 'hidden sm:flex opacity-0 scale-80' : 'flex opacity-100 scale-95'}
+              className={`flex items-center bg-slate-200/50 dark:bg-slate-700/30 rounded-full flex-shrink min-w-0 transition-all duration-200 xl:ml-2
+      ${showSearchInput ? 'hidden sm:flex md:scale-100 xl:scale-110' : 'flex md:scale-100 xl:scale-110'}
     `}
             >
               <button
                 onClick={() => setTypeFilter('all')}
-                className={`px-2.5 sm:px-3 py-1 text-[11px] font-semibold rounded-full transition-all duration-150
+                className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 text-[11px] md:text-xs font-semibold rounded-full transition-all duration-150
         ${typeFilter === 'all'
                     ? 'bg-slate-700 dark:bg-slate-600 text-white shadow'
                     : 'text-slate-700 dark:text-slate-400 hover:bg-slate-300/50 dark:hover:bg-slate-700/50'
@@ -248,7 +248,7 @@ export function TransactionList({
 
               <button
                 onClick={() => setTypeFilter('receita')}
-                className={`px-2.5 sm:px-3 py-1 text-[11px] font-semibold rounded-full transition-all duration-150
+                className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 text-[11px] md:text-xs font-semibold rounded-full transition-all duration-150
         ${typeFilter === 'receita'
                     ? 'bg-emerald-600 dark:bg-emerald-700 text-white shadow'
                     : 'text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-950/50'
@@ -259,7 +259,7 @@ export function TransactionList({
 
               <button
                 onClick={() => setTypeFilter('despesa')}
-                className={`px-2.5 sm:px-3 py-1 text-[11px] font-semibold rounded-full transition-all duration-150
+                className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 text-[11px] md:text-xs font-semibold rounded-full transition-all duration-150
         ${typeFilter === 'despesa'
                     ? 'bg-rose-600 dark:bg-rose-700 text-white shadow'
                     : 'text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/50'
