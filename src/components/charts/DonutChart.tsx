@@ -1,6 +1,6 @@
 'use client';
 
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 import { motion } from 'framer-motion';
 
 interface DonutChartProps {
@@ -57,10 +57,18 @@ export function DonutChart({
 
     const totalValue = data.reduce((sum, item) => sum + item.value, 0);
 
+    // Não renderizar se não houver dados ou se o size for muito pequeno
+    if (!data || data.length === 0 || size < 50) {
+        return (
+            <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+                <div className="text-xs text-gray-500">Sem dados</div>
+            </div>
+        );
+    }
+
     return (
-        <div className="relative" style={{ width: size, height: size }}>
-            <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
+        <div className="relative" style={{ width: size, height: size, minWidth: size, minHeight: size }}>
+            <PieChart width={size} height={size}>
                     <Pie
                         data={data}
                         cx="50%"
@@ -87,7 +95,6 @@ export function DonutChart({
                         ))}
                     </Pie>
                 </PieChart>
-            </ResponsiveContainer>
 
             {showCenter && centerContent && (
                 <motion.div

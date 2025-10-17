@@ -59,12 +59,12 @@ export function AddTransactionPanel({
   const [lockedType, setLockedType] = useState<'receita' | 'despesa' | null>(null);
   const effectiveTab = editingTransaction && lockedType ? lockedType : activeTab;
 
-  const getDefaultCategoryId = () => {
+  const getDefaultCategoryId = useCallback(() => {
     const semCategoria = categories.find(
       c => c.name === 'Sem Categoria' && c.type === effectiveTab && c.is_system === true
     );
     return semCategoria?.id || '';
-  };
+  }, [categories, effectiveTab]);
 
   const {
     control,
@@ -421,8 +421,8 @@ export function AddTransactionPanel({
       <div className={`${contentClasses} flex flex-col`}>
         <div
           className={`flex items-center justify-between p-2 lg:p-2.5 border-b transition-all duration-150 relative z-30 flex-shrink-0 ${editingTransaction && isFixed
-              ? 'border-emerald-200 dark:border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/50 backdrop-blur-md'
-              : 'border-slate-200 dark:border-slate-700/30 bg-slate-50 dark:bg-slate-800/40 backdrop-blur-md'
+            ? 'border-emerald-200 dark:border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/50 backdrop-blur-md'
+            : 'border-slate-200 dark:border-slate-700/30 bg-slate-50 dark:bg-slate-800/40 backdrop-blur-md'
             }`}
         >
           <div className="flex items-center gap-2 relative z-40">
@@ -509,8 +509,8 @@ export function AddTransactionPanel({
                 type="submit"
                 disabled={isLoading || !isValid}
                 className={`w-full py-3 lg:py-3 px-4 rounded-lg font-bold text-base lg:text-sm text-white transition-all duration-150 shadow-lg relative overflow-hidden group ${effectiveTab === 'despesa'
-                    ? 'bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 disabled:from-rose-400 disabled:to-rose-500 hover:shadow-xl hover:shadow-rose-500/40'
-                    : 'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-emerald-400 disabled:to-emerald-500 hover:shadow-xl hover:shadow-emerald-500/40'
+                  ? 'bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 disabled:from-rose-400 disabled:to-rose-500 hover:shadow-xl hover:shadow-rose-500/40'
+                  : 'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-emerald-400 disabled:to-emerald-500 hover:shadow-xl hover:shadow-emerald-500/40'
                   } disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.98] hover:scale-[1.01]`}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
