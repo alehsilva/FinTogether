@@ -132,12 +132,19 @@ export function ChartsSection({
 
     const receitas = monthIncomeTransactions.reduce((sum, tx) => sum + tx.amount, 0);
 
+    // Calcular despesas para comparação com receitas
+    const monthExpenseTransactions = monthTransactions.filter(
+      tx => tx.type === 'despesa' && tx.status === 'completed'
+    );
+    const despesas = monthExpenseTransactions.reduce((sum, tx) => sum + tx.amount, 0);
 
-
-    // Para receitas: calcular porcentagem em relação às receitas como um "indicador de eficiência"
-    // Se receitas > 0, mostra 100%. Se não há receitas, mostra 0%
-    // Alternativamente, poderia ser porcentagem de uma meta mensal
-    const porcentagem = receitas > 0 ? 100 : 0;
+    // Para receitas: mostrar qual porcentagem representa do total de receitas vs despesas
+    // Isso mostra a proporção de entradas vs saídas de forma visual
+    let porcentagem = 0;
+    const totalMovimento = receitas + despesas;
+    if (totalMovimento > 0) {
+      porcentagem = Math.round((receitas / totalMovimento) * 100);
+    }
 
     return { valor: receitas, porcentagem };
   }; const getDespesas = () => {

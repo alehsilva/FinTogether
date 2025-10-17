@@ -31,19 +31,19 @@ export function ReceitasCard({
     const formatCurrency = (value: number) =>
         `R$ ${new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value)}`;
 
-    // Corrigir dados para o gráfico donut - usar porcentagem diretamente
+    // Dados para o gráfico donut - mostra proporção de receitas vs total de movimentação
     const chartData = [
         {
             name: 'Receitas',
-            value: porcentagem,
+            value: porcentagem || 1, // Garantir pelo menos 1% para visualização quando há dados
             color: '#10b981',
             percentage: porcentagem,
         },
         {
             name: 'Outros',
-            value: 100 - porcentagem,
+            value: porcentagem > 0 ? 100 - porcentagem : 99,
             color: '#e2e8f0',
-            percentage: 100 - porcentagem,
+            percentage: porcentagem > 0 ? 100 - porcentagem : 100,
         },
     ];
 
@@ -102,9 +102,9 @@ export function ReceitasCard({
                                     innerRadius={50}
                                     showCenter={true}
                                     centerContent={{
-                                        title: `${porcentagem}%`,
+                                        title: valor > 0 ? `${porcentagem}%` : '0%',
                                         value: formatCurrency(valor),
-                                        subtitle: 'Receitas',
+                                        subtitle: valor > 0 ? 'das entradas' : 'Sem receitas',
                                     }}
                                     showPercentages={false}
                                     animated={true}
