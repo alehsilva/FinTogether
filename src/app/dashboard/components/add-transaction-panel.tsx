@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { X } from 'lucide-react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { transactionSchema, type TransactionFormData, formatters } from '@/lib/schemas';
-import { getLocalDateString, parseLocalDate } from '@/lib/utils';
+import { X } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
+import { formatters, type TransactionFormData, transactionSchema } from '@/lib/schemas';
+import { getLocalDateString, parseLocalDate } from '@/lib/utils';
 import type { Category, Transaction } from '@/models/financial';
 import { TransactionCalendar } from './transaction-calendar';
+import { TransactionFormFields } from './transaction-form-fields';
 import { TransactionTabs } from './transaction-tabs';
 import { TransactionTypeButtons } from './transaction-type-buttons';
-import { TransactionFormFields } from './transaction-form-fields';
 
 interface AddTransactionPanelProps {
   isOpen: boolean;
@@ -55,7 +55,7 @@ export function AddTransactionPanel({
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [lastEditingTransactionId, setLastEditingTransactionId] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  const [editingReady, setEditingReady] = useState(false);
+  const [_editingReady, setEditingReady] = useState(false);
   const [lockedType, setLockedType] = useState<'receita' | 'despesa' | null>(null);
   const effectiveTab = editingTransaction && lockedType ? lockedType : activeTab;
 
@@ -118,7 +118,7 @@ export function AddTransactionPanel({
         tags: [],
       });
     }
-  }, [isOpen, defaultType, hasCouple]);
+  }, [isOpen, defaultType, hasCouple, getDefaultCategoryId, reset, setActiveTab]);
 
   useEffect(() => {
     if (editingTransaction && editingTransaction.id !== lastEditingTransactionId) {
@@ -132,7 +132,14 @@ export function AddTransactionPanel({
         setActiveTab(defaultType);
       }
     }
-  }, [editingTransaction?.id, lastEditingTransactionId, defaultType]);
+  }, [
+    editingTransaction?.id,
+    lastEditingTransactionId,
+    defaultType,
+    editingTransaction,
+    activeTab,
+    setActiveTab,
+  ]);
 
   useEffect(() => {
     if (editingTransaction && categories.length > 0) {
@@ -149,7 +156,7 @@ export function AddTransactionPanel({
         return;
       }
 
-      let categoriaValue =
+      const categoriaValue =
         editingTransaction.category_id ||
         (editingTransaction as any).category?.id ||
         (typeof (editingTransaction as any).category === 'string'
@@ -229,9 +236,22 @@ export function AddTransactionPanel({
     lastEditingTransactionId,
     hasCouple,
     reset,
-    defaultType,
     categories,
     activeTab,
+    editingTransaction?.amount,
+    editingTransaction?.category_id,
+    editingTransaction?.description,
+    editingTransaction?.installments,
+    editingTransaction?.location,
+    editingTransaction?.payment_method,
+    editingTransaction?.privacy,
+    editingTransaction?.tags,
+    editingTransaction?.title,
+    editingTransaction?.transaction_date,
+    editingTransaction?.type,
+    getDefaultCategoryId,
+    setValue,
+    editingTransaction,
   ]);
 
   // Atualiza apenas a categoria quando muda de tab (mantém todos os outros campos)
@@ -249,7 +269,15 @@ export function AddTransactionPanel({
         trigger('categoria');
       }
     }
-  }, [activeTab, editingTransaction, setValue, trigger, categories, effectiveTab, getValues]);
+  }, [
+    editingTransaction,
+    setValue,
+    trigger,
+    categories,
+    effectiveTab,
+    getValues,
+    getDefaultCategoryId,
+  ]);
 
   const handleClose = () => {
     const defaultCategoryId = getDefaultCategoryId();
@@ -392,9 +420,9 @@ export function AddTransactionPanel({
     <div ref={panelRef} className={containerClasses}>
       <div className={`${contentClasses} flex flex-col`}>
         <div
-          className={`flex items-center justify-between p-3 lg:p-2.5 border-b transition-all duration-150 relative z-30 flex-shrink-0 ${editingTransaction && isFixed
-            ? 'border-emerald-200 dark:border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/50 backdrop-blur-md'
-            : 'border-slate-200 dark:border-slate-700/30 bg-slate-50 dark:bg-slate-800/40 backdrop-blur-md'
+          className={`flex items-center justify-between p-2 lg:p-2.5 border-b transition-all duration-150 relative z-30 flex-shrink-0 ${editingTransaction && isFixed
+              ? 'border-emerald-200 dark:border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/50 backdrop-blur-md'
+              : 'border-slate-200 dark:border-slate-700/30 bg-slate-50 dark:bg-slate-800/40 backdrop-blur-md'
             }`}
         >
           <div className="flex items-center gap-2 relative z-40">
@@ -407,7 +435,7 @@ export function AddTransactionPanel({
               </h2>
               {editingTransaction && isFixed && (
                 <div className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium mt-0.5 transition-colors duration-150">
-                  <span className="w-1 h-1 bg-emerald-600 dark:bg-emerald-400 rounded-full animate-pulse"></span>
+                  <span className="w-1 h-1 bg-emerald-600 dark:bg-emerald-400 rounded-full animate-pulse" />
                   Editando
                 </div>
               )}
@@ -454,7 +482,7 @@ export function AddTransactionPanel({
         <div className="flex-1 overflow-y-auto">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-4 lg:p-3 pb-20 lg:pb-8 space-y-3 lg:space-y-3 w-full overflow-x-hidden"
+            className="p-2.5 lg:p-3 pb-4 lg:pb-8 space-y-1.5 lg:space-y-3 w-full overflow-x-hidden"
           >
             <div>
               <TransactionFormFields
@@ -476,13 +504,13 @@ export function AddTransactionPanel({
               />
             </div>
 
-            <div className="mt-6 lg:mt-4 pt-4 lg:pt-3 border-t border-slate-300/30 dark:border-slate-700/30 transition-colors duration-150">
+            <div className="mt-3 lg:mt-4 pt-2.5 lg:pt-3 border-t border-slate-300/30 dark:border-slate-700/30 transition-colors duration-150">
               <Button
                 type="submit"
                 disabled={isLoading || !isValid}
-                className={`w-full py-3.5 lg:py-3 px-4 rounded-lg font-bold text-base lg:text-sm text-white transition-all duration-150 shadow-lg relative overflow-hidden group ${effectiveTab === 'despesa'
-                  ? 'bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 disabled:from-rose-400 disabled:to-rose-500 hover:shadow-xl hover:shadow-rose-500/40'
-                  : 'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-emerald-400 disabled:to-emerald-500 hover:shadow-xl hover:shadow-emerald-500/40'
+                className={`w-full py-3 lg:py-3 px-4 rounded-lg font-bold text-base lg:text-sm text-white transition-all duration-150 shadow-lg relative overflow-hidden group ${effectiveTab === 'despesa'
+                    ? 'bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 disabled:from-rose-400 disabled:to-rose-500 hover:shadow-xl hover:shadow-rose-500/40'
+                    : 'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-emerald-400 disabled:to-emerald-500 hover:shadow-xl hover:shadow-emerald-500/40'
                   } disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.98] hover:scale-[1.01]`}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
@@ -501,23 +529,23 @@ export function AddTransactionPanel({
                           r="10"
                           stroke="currentColor"
                           strokeWidth="4"
-                        ></circle>
+                        />
                         <path
                           className="opacity-75"
                           fill="currentColor"
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
+                        />
                       </svg>
                       SALVANDO...
                     </>
                   ) : editingTransaction ? (
-                    <>SALVAR ALTERAÇÕES</>
+                    'SALVAR ALTERAÇÕES'
                   ) : (
                     <>ADICIONAR {effectiveTab.toUpperCase()}</>
                   )}
                 </span>
                 {!isLoading && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                 )}
               </Button>
             </div>
