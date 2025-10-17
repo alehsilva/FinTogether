@@ -69,32 +69,32 @@ export function DonutChart({
     return (
         <div className="relative" style={{ width: size, height: size, minWidth: size, minHeight: size }}>
             <PieChart width={size} height={size}>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={showPercentages ? CustomLabel : false}
-                        outerRadius={outerRadius}
-                        innerRadius={innerRadius}
-                        paddingAngle={2}
-                        dataKey="value"
-                        startAngle={90}
-                        endAngle={450}
-                        animationBegin={animated ? 0 : undefined}
-                        animationDuration={animated ? 1200 : 0}
-                        animationEasing="ease-out"
-                    >
-                        {data.map((entry, index) => (
-                            <Cell
-                                key={`cell-${index}`}
-                                fill={entry.color}
-                                stroke="rgba(255,255,255,0.8)"
-                                strokeWidth={2}
-                            />
-                        ))}
-                    </Pie>
-                </PieChart>
+                <Pie
+                    data={data}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={showPercentages ? CustomLabel : false}
+                    outerRadius={outerRadius}
+                    innerRadius={innerRadius}
+                    paddingAngle={2}
+                    dataKey="value"
+                    startAngle={90}
+                    endAngle={450}
+                    animationBegin={animated ? 0 : undefined}
+                    animationDuration={animated ? 1200 : 0}
+                    animationEasing="ease-out"
+                >
+                    {data.map((entry, index) => (
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={entry.color}
+                            stroke="rgba(255,255,255,0.8)"
+                            strokeWidth={2}
+                        />
+                    ))}
+                </Pie>
+            </PieChart>
 
             {showCenter && centerContent && (
                 <motion.div
