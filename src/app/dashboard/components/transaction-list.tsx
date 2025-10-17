@@ -355,7 +355,7 @@ export function TransactionList({
 
         <CardContent
           data-scroll-container
-          className={`space-y-2 px-4 pb-4 pt-3 overflow-y-auto ${isMaximized ? 'h-[calc(100vh-290px)]' : 'max-h-[400px] md:max-h-[300px]'
+          className={`space-y-2 px-4 pb-4 pt-3 overflow-y-auto ${isMaximized ? 'h-[calc(100vh-380px)]' : 'max-h-[400px] md:max-h-[300px]'
             } ${monthNavigation.isSwiping ? 'bg-gradient-to-r from-emerald-50/50 to-emerald-100/50 dark:from-emerald-950/20 dark:to-emerald-900/20' : ''}`}
           {...monthNavigation.touchHandlers}
         >
